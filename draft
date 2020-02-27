@@ -1,30 +1,67 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 int main()
 {
-    int number;
-    // declare and initialize string 
-    char str[50]; 
+    char inputstr[50];
+    char inst[10];
+    int marker = 1;
+    int spacebool;
     
-    //user can exit by entering 0
-    while ( str != "0")
+    //runs continuously
+    while (marker == 1)
     {
-        printf("Enter Input: ");  
-    
-        // reads, stores and print input
-        scanf("%s", str);
-        printf("You entered: %s\n", &str);
+        printf("Enter input: ");
         
-    
+        //reads, stores, and prints, input
+        fgets(inputstr, sizeof(inputstr), stdin);  // read string
+        printf("You entered: ");
+        puts(inputstr);    // display string
+        
+         //inspect and print each char, line by line
         char* s;
-
-        for ( s=&str[0]; *s != '\0'; s++ )
+        char ch = 's'; //
+        
+        for ( s=&inputstr[0]; *s != '\0'; s++ )
+        //for ( s=&str[0]; *s < 50; s++ )
         {
             printf("%c\n", *s);
+            ch = *s;
+            spacebool = isspace(*s);
+            //printf("%i", spacebool);
+            
+            if (spacebool == 0){
+                strncat(inst, &ch, 1);
+                //printf("%s", inst);
+            }
+            else
+            {
+                //call functions
+                //printf("that was a space dummy");
+                printf("Instruction: %s", inst);
+                
+                if (strcmp(inst, "add") == 0)
+                {
+                    printf("\ncall add func\n");
+                    
+                } 
+                else if (strcmp(inst, "mov") == 0)
+                {
+                    printf("\ncall move func\n");
+                    
+                } else 
+                {
+                    printf("Unknown instruction");
+                }
+                
+                //break;
+            }
         }
         s = 0;
-
+        strcpy(inst, "");
     }
+    
+    //out of while loops, exits
     return 0;
 }
