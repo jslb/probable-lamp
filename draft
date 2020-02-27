@@ -62,6 +62,60 @@ int main()
         }
         
         printf("Instruction: %s", argsstr[0]);
+        int regVar;
+        
+        if (strcmp(argsstr[1], "r0,") == 0){
+            regVar = 0;
+            printf("\nregVar = 0");
+        } else if (strcmp(argsstr[1], "r1,") == 0){
+            regVar = 1;
+            printf("\nregVar = 1");
+        } else if (strcmp(argsstr[1], "r2,") == 0){
+            regVar = 2;
+            printf("\nregVar = 2");
+        } else if (strcmp(argsstr[1], "r3,") == 0){
+            regVar = 3;
+            printf("\nregVar = 3");
+        } else if (strcmp(argsstr[1], "r4,") == 0){
+            regVar = 4;
+            printf("\nregVar = 4");
+        } else if (strcmp(argsstr[1], "r5,") == 0){
+            regVar = 5;
+            printf("\nregVar = 5");
+        } else if (strcmp(argsstr[1], "r6,") == 0){
+            regVar = 6;
+            printf("\nregVar = 6");
+        } else if (strcmp(argsstr[1], "r7,") == 0){
+            regVar = 7;
+            printf("\nregVar = 7");
+        } else if (strcmp(argsstr[1], "r8,") == 0){
+            regVar = 8;
+            printf("\nregVar = 8");
+        } else if (strcmp(argsstr[1], "r9,") == 0){
+            regVar = 9;
+            printf("\nregVar = 9");
+        } else if (strcmp(argsstr[1], "r10,") == 0){
+            regVar = 10;
+            printf("\nregVar = 10");
+        } else if (strcmp(argsstr[1], "r11,") == 0){
+            regVar = 11;
+            printf("\nregVar = 11");
+        } else if (strcmp(argsstr[1], "r12,") == 0){
+            regVar = 12;
+            printf("\nregVar = 12");
+        } else if (strcmp(argsstr[1], "r13,") == 0){
+            regVar = 13;
+            printf("\nregVar = 13");
+        } else if (strcmp(argsstr[1], "r14,") == 0){
+            regVar = 14;
+            printf("\nregVar = 14");
+        } else if (strcmp(argsstr[1], "r15,") == 0){
+            regVar = 15;
+            printf("\nregVar = 15");
+        } else 
+        {
+            printf("The 2nd fragmebt is not a valid register");
+        }
                 
         if (strcmp(argsstr[0], "add") == 0)
         {
