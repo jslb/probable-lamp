@@ -4,21 +4,21 @@
 #include <ctype.h>
 
 
-void addFunc (char *endreg, char *val1, char *val2)
+void addFunc (int endreg, int val1var, int val2var)
 {
-    printf("addFunc string:\n");
-    puts(endreg);
-    puts(val1);
-    puts(val2);
+    printf("addFunc vars:\n");
+    printf("%i\n", endreg);
+    printf("%i\n", val1var);
+    printf("%i\n",val2var);
     
  
 }
 
-void movFunc (char *endreg, char *val)
+void movFunc (int endreg, int val1var)
 {
-    printf("movFunc string:\n");
-    puts(endreg);
-    puts(val);
+    printf("movFunc vars:\n");
+    printf("%i\n", endreg);
+    printf("%i\n", val1var);
 }
 
 
@@ -62,8 +62,8 @@ int main()
         }
         
         printf("Instruction: %s", argsstr[0]);
-        int regVar;
-        
+        int regVar, val1var, val2var;
+        //regVar
         if (strcmp(argsstr[1], "r0,") == 0){
             regVar = 0;
             printf("\nregVar = 0");
@@ -114,18 +114,127 @@ int main()
             printf("\nregVar = 15");
         } else 
         {
-            printf("The 2nd fragmebt is not a valid register");
+            printf("The 2nd fragment is not a valid register");
         }
+        
+        //val1var
+        if (strcmp(argsstr[2], "r0,") == 0){
+            val1var = 0;
+            printf("\nval1var = 0");
+        } else if (strcmp(argsstr[2], "r1,") == 0){
+            val1var = 1;
+            printf("\nval1var = 1");
+        } else if (strcmp(argsstr[2], "r2,") == 0){
+            val1var = 2;
+            printf("\nval1var = 2");
+        } else if (strcmp(argsstr[2], "r3,") == 0){
+            val1var = 3;
+            printf("\nval1var = 3");
+        } else if (strcmp(argsstr[2], "r4,") == 0){
+            val1var = 4;
+            printf("\nval1var = 4");
+        } else if (strcmp(argsstr[2], "r5,") == 0){
+            val1var = 5;
+            printf("\nval1var = 5");
+        } else if (strcmp(argsstr[2], "r6,") == 0){
+            val1var = 6;
+            printf("\nval1var = 6");
+        } else if (strcmp(argsstr[2], "r7,") == 0){
+            val1var = 7;
+            printf("\nval1var = 7");
+        } else if (strcmp(argsstr[2], "r8,") == 0){
+            val1var = 8;
+            printf("\nval1var = 8");
+        } else if (strcmp(argsstr[2], "r9,") == 0){
+            val1var = 9;
+            printf("\nval1var = 9");
+        } else if (strcmp(argsstr[2], "r10,") == 0){
+            val1var = 10;
+            printf("\nval1var = 10");
+        } else if (strcmp(argsstr[2], "r11,") == 0){
+            val1var = 11;
+            printf("\nval1var = 11");
+        } else if (strcmp(argsstr[2], "r12,") == 0){
+            val1var = 12;
+            printf("\nval1var = 12");
+        } else if (strcmp(argsstr[2], "r13,") == 0){
+            val1var = 13;
+            printf("\nval1var = 13");
+        } else if (strcmp(argsstr[2], "r14,") == 0){
+            val1var = 14;
+            printf("\nval1var = 14");
+        } else if (strcmp(argsstr[2], "r15,") == 0){
+            val1var = 15;
+            printf("\nval1var = 15");
+        } else 
+        {
+            printf("The 3rd fragment is not a valid register");
+        }
+        
+        //val2var
+        if (strcmp(argsstr[3], "r0") == 0){
+            val2var = 0;
+            printf("\nval2var = 0");
+        } else if (strcmp(argsstr[3], "r1") == 0){
+            val2var = 1;
+            printf("\nval2var = 1");
+        } else if (strcmp(argsstr[3], "r2") == 0){
+            val2var = 2;
+            printf("\nval2var = 2");
+        } else if (strcmp(argsstr[3], "r3") == 0){
+            val2var = 3;
+            printf("\nval2var = 3");
+        } else if (strcmp(argsstr[3], "r4") == 0){
+            val2var = 4;
+            printf("\nval2var = 4");
+        } else if (strcmp(argsstr[3], "r5") == 0){
+            val2var = 5;
+            printf("\nval2var = 5");
+        } else if (strcmp(argsstr[3], "r6") == 0){
+            val2var = 6;
+            printf("\nval2var = 6");
+        } else if (strcmp(argsstr[3], "r7") == 0){
+            val2var = 7;
+            printf("\nval2var = 7");
+        } else if (strcmp(argsstr[3], "r8") == 0){
+            val2var = 8;
+            printf("\nval2var = 8");
+        } else if (strcmp(argsstr[3], "r9") == 0){
+            val2var = 9;
+            printf("\nval2var = 9");
+        } else if (strcmp(argsstr[3], "r10") == 0){
+            val2var = 10;
+            printf("\nval2var = 10");
+        } else if (strcmp(argsstr[3], "r11") == 0){
+            val2var = 11;
+            printf("\nval2var = 11");
+        } else if (strcmp(argsstr[3], "r12") == 0){
+            val2var = 12;
+            printf("\nval2var = 12");
+        } else if (strcmp(argsstr[3], "r13") == 0){
+            val2var = 13;
+            printf("\nval2var = 13");
+        } else if (strcmp(argsstr[3], "r14") == 0){
+            val2var = 14;
+            printf("\nval2var = 14");
+        } else if (strcmp(argsstr[3], "r15") == 0){
+            val2var = 15;
+            printf("\nval2var = 15");
+        } else 
+        {
+            printf("The 4th fragment is not a valid register");
+        }
+        
                 
         if (strcmp(argsstr[0], "add") == 0)
         {
             printf("\ncall add func\n"); // want to give the function, the rest of the input string
-            addFunc(argsstr[1], argsstr[2], argsstr[3]); //passing the inst to addFunc
+            addFunc(regVar, val1var, val2var); //passing the inst to addFunc
         } 
         else if (strcmp(argsstr[0], "mov") == 0)
         {
             printf("\ncall move func\n");
-            movFunc(argsstr[1], argsstr[2]);
+            movFunc(regVar, val1var);
         } 
         else 
         {
