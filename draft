@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    int number;
+    // declare and initialize string 
+    char str[50]; 
+    
+    //user can exit by entering 0
+    while ( str != "0")
+    {
+        printf("Enter Input: ");  
+    
+        // reads, stores and print input
+        scanf("%s", str);
+        printf("You entered: %s\n", &str);
+        
+    
+        char* s;
+
+        for ( s=&str[0]; *s != '\0'; s++ )
+        {
+            printf("%c\n", *s);
+        }
+        s = 0;
+
+    }
+    return 0;
+}
