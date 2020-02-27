@@ -2,12 +2,20 @@
 #include <string.h>
 #include <ctype.h>
 
+
+void addFunc (char *addString)
+{
+    printf("addFunc string:");
+    puts(addString);
+}
+
 int main()
 {
     char inputstr[50];
     char inst[10];
     int marker = 1;
     int spacebool;
+    char *argsstr[10];
     
     //runs continuously
     while (marker == 1)
@@ -19,48 +27,41 @@ int main()
         printf("You entered: ");
         puts(inputstr);    // display string
         
-         //inspect and print each char, line by line
-        char* s;
-        char ch = 's'; //
+        char *frag = strtok(inputstr, " ");
+        int counter = 0;
         
-        for ( s=&inputstr[0]; *s != '\0'; s++ )
-        //for ( s=&str[0]; *s < 50; s++ )
+        // loop through the string to split at each " "
+        while( frag != NULL ) 
         {
-            printf("%c\n", *s);
-            ch = *s;
-            spacebool = isspace(*s);
-            //printf("%i", spacebool);
-            
-            if (spacebool == 0){
-                strncat(inst, &ch, 1);
-                //printf("%s", inst);
-            }
-            else
-            {
-                //call functions
-                //printf("that was a space dummy");
-                printf("Instruction: %s", inst);
-                
-                if (strcmp(inst, "add") == 0)
-                {
-                    printf("\ncall add func\n");
-                    
-                } 
-                else if (strcmp(inst, "mov") == 0)
-                {
-                    printf("\ncall move func\n");
-                    
-                } else 
-                {
-                    printf("Unknown instruction");
-                }
-                
-                //break;
-            }
+            printf( " %s\n", frag ); //printing each
+            argsstr[counter++] = frag;
+            frag = strtok(NULL, " ");
         }
-        s = 0;
-        strcpy(inst, "");
+        
+        //add each frag into new array (argsstr)
+        int p;
+        for (p = 0; p < counter; ++p)
+        {
+            printf( "%s\n", argsstr[p]) ;
+        }
+        
+        printf("Instruction: %s", argsstr[0]);
+                
+        if (strcmp(argsstr[0], "add") == 0)
+        {
+            printf("\ncall add func\n"); // want to give the function, the rest of the input string
+            addFunc(argsstr[1]); //passing the inst to addFunc
+        } 
+        else if (strcmp(argsstr[0], "mov") == 0)
+        {
+            printf("\ncall move func\n");
+        } 
+        else 
+        {
+            printf("Unknown instruction");
+        }
     }
+    
     
     //out of while loops, exits
     return 0;
