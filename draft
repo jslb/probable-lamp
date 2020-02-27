@@ -1,13 +1,26 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <ctype.h>
 
 
-void addFunc (char *addString)
+void addFunc (char *endreg, char *val1, char *val2)
 {
-    printf("addFunc string:");
-    puts(addString);
+    printf("addFunc string:\n");
+    puts(endreg);
+    puts(val1);
+    puts(val2);
+    
+ 
 }
+
+void movFunc (char *endreg, char *val)
+{
+    printf("movFunc string:\n");
+    puts(endreg);
+    puts(val);
+}
+
 
 int main()
 {
@@ -16,6 +29,9 @@ int main()
     int marker = 1;
     int spacebool;
     char *argsstr[10];
+    
+    //Register declaration
+    int R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15;
     
     //runs continuously
     while (marker == 1)
@@ -50,11 +66,12 @@ int main()
         if (strcmp(argsstr[0], "add") == 0)
         {
             printf("\ncall add func\n"); // want to give the function, the rest of the input string
-            addFunc(argsstr[1]); //passing the inst to addFunc
+            addFunc(argsstr[1], argsstr[2], argsstr[3]); //passing the inst to addFunc
         } 
         else if (strcmp(argsstr[0], "mov") == 0)
         {
             printf("\ncall move func\n");
+            movFunc(argsstr[1], argsstr[2]);
         } 
         else 
         {
@@ -66,3 +83,22 @@ int main()
     //out of while loops, exits
     return 0;
 }
+
+/*int registerFunc(char *reg)
+{
+    printf("string: %s", reg);
+    
+    if (strcmp(tolower(reg), "r0") == 0)
+    {
+        regCode = 0;
+    } else if (strcmp(tolower(reg), "r1") == 0)
+    {
+        regCode = 1;
+    } else if (strcmp(tolower(reg), "r2") == 0)
+    {
+        regCode = 2;
+    } 
+    
+    return regCode;
+    
+}*/
