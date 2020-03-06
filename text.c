@@ -8,7 +8,7 @@ int main()
    int n = 0;
    int i = 0;
    int newindex = 0;
-   
+   int finalint = 0;
    n = sizeof(z)/sizeof(z[0]);
    int totchars = n - 1;
    int lastcharindex = totchars - 1;
@@ -27,9 +27,12 @@ int main()
         num[newindex] = z[i];
 	i++;
 	newindex++;
-
       }
-      printf("int: %s\n", num);
+      sscanf(num, "%d", &finalint);
+      printf("int: %d\n", finalint);
+   } else {
+      printf("not vaild input");
    }
+
    return 0;
 }
