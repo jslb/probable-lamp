@@ -9,6 +9,40 @@ int R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15;
 R2 = 5;
 R3 = 7;
 
+int numberFunc(int, char[]);
+int value = 0;
+int numberFunc(int value, char* input)
+{
+   char num[32];
+   printf("%s", input); // %s is format specifier
+   int n = 0;
+   int i = 0;
+   int newindex = 0;
+   int finalint = 0;
+   n = sizeof(input)/sizeof(input[0]);
+   int totchars = n - 1;
+   int lastcharindex = totchars - 1;
+   //printf("Totalchars: %d\n", totchars);
+   //printf("Lastcharindex: %d\n", lastcharindex);
+   if (input[0] == '#') {
+      printf("First char is hash\n");
+      for (int i = 1; i <= lastcharindex;) {
+	printf("Char at %d index = %c\n", i , input[i]);
+	num[newindex] = input[i];
+	i++;
+	newindex++;
+      }
+      sscanf(num, "%d", &finalint);
+      printf("int: %d\n", finalint);
+      value = finalint;
+   } else {   
+      printf("not vaild input");
+   }
+   printf("final int func: %d\n", value);
+   return value;
+}
+
+
 void addFunc (int endreg, int val1var, int val2var)
 {
     printf("addFunc vars:\n");
@@ -155,6 +189,59 @@ void movFunc (int endreg, int val1var)
     printf("movFunc vars:\n");
     printf("%i\n", endreg);
     printf("%i\n", val1var);
+
+    if (endreg == 0){                                                                                               
+        R0 = val1var;
+	printf("Register R0 value: %i\n", R0);
+    } else if (endreg == 1){
+        R1 = val1var;
+	printf("Register R1 value: %i\n", R1);
+    } else if (endreg == 2){
+        R2 = val1var;
+	printf("Register R2 value: %i\n", R2);
+    } else if (endreg == 3){
+        R3 = val1var;
+	printf("Register R3 value: %i\n", R3);
+    } else if (endreg == 4){
+	R4 = val1var;
+	printf("Register R4 value: %i\n", R4);
+    } else if (endreg == 5){
+	R5 = val1var;
+	printf("Register R5 value: %i\n", R5);
+    } else if (endreg == 6){
+	R6 = val1var;
+	printf("Register R6 value: %i\n", R6);
+    } else if (endreg == 7){
+	R7 = val1var;
+	printf("Register R7 value: %i\n", R7); 
+    } else if (endreg == 8){
+	R8 = val1var;
+	printf("Register R8 value: %i\n", R8); 
+    } else if (endreg == 9){
+	R9 = val1var;
+	printf("Register R9 value: %i\n", R9);
+    } else if (endreg == 10){
+	R10 = val1var; 
+        printf("Register R10 value: %i\n", R10); 
+    } else if (endreg == 11){ 
+	R11 = val1var;
+	printf("Register R11 value: %i\n", R11);
+    } else if (endreg == 12){
+	R12 = val1var;
+	printf("Register R12 value: %i\n", R12);
+    } else if (endreg == 13){
+	R13 = val1var;
+	printf("Register R13 value: %i\n", R13);
+    } else if (endreg == 14){
+	R14 = val1var;
+	printf("Register R14 value: %i\n", R14);
+    } else if (endreg == 15){
+	R15 = val1var;
+	printf("Register R15 value: %i\n", R15);
+    } else {
+	printf("Invalid register/value");
+    }
+
 }
 
 
@@ -247,7 +334,10 @@ int main()
             printf("\nregVar = 15");
         } else 
         {
-            printf("\n2nd frag: possible int");
+            //printf("\n2nd frag: possible int");
+	    //int value = 0;
+	    regVar = numberFunc(regVar, argsstr[1]);
+	    printf("final int vmain: %d\n", regVar);
         }
         
         //val1var
@@ -300,7 +390,10 @@ int main()
             val1var = 15;
             printf("\nval1var = 15");
         } else {
-            printf("\nThird frag: possible int");
+            //printf("\nThird frag: possible int");
+	    //int value = 0;
+	    val1var = numberFunc(val1var, argsstr[2]);
+	    printf("final int vmain: %d\n", val1var);
         }
         
         //val2var
@@ -354,7 +447,9 @@ int main()
             printf("\nval2var = 15");
         } else 
         {
-            printf("\n4th frag");
+            //int value = 0;
+	    val2var = numberFunc(val2var, argsstr[3]);
+	    printf("final int vmain: %d\n", val2var);
         }
         
                 
