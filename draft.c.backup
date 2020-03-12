@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <ctype.h>
 
 //global vars
 //Register declaration
 int R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15;
 
 int numberFunc(int, char[]);
-int regnumFunc(int, char[]);
 int value = 0;
 int numberFunc(int value, char* input)
 {
@@ -249,17 +249,7 @@ int main()
         
         printf("Instruction: %s", argsstr[0]);
         int regVar, val1var, val2var;
-	regVar = regnumFunc(value, argsstr[1]);
-	if (isdigit(regVar))
-	{
-	   printf("regVar int is: %d\n", regVar);
-	} else {
-	   regVar = numberFunc(regVar, argsstr[1]);
-	   printf("final int from main: %d\n", regVar);
-	} 
-
         //regVar
-	/*
         if (strcmp(argsstr[1], "r0,") == 0){
             regVar = 0;
         } else if (strcmp(argsstr[1], "r1,") == 0){
@@ -299,7 +289,6 @@ int main()
 	    regVar = numberFunc(regVar, argsstr[1]);
 	    //printf("final int vmain: %d\n", regVar);
         }
-	*/
         
         //val1var
         if (strcmp(argsstr[2], "r0,") == 0){
@@ -403,34 +392,6 @@ int main()
     
     //out of while loops, exits
     return 0;
-}
-
-int regnumFunc(int value, char* input)
-{
-   
-   char num[32];
-   int n = 0;
-   int finalint =0;
-   printf("%s", input); // %s is format specifier
-   if (input[0] == 'r') {
-      //printf("First char is r, register detected \n");
-      
-      for (int i = 1; isdigit(input[i]);)
-      {
-	//printf("the first statement: %c\n", input[i]);
-	num[i-1] = input[i];
-	i++;
-      }
-      sscanf(num, "%d", &finalint);
-      printf("Register: %d\n", finalint);
-      value = finalint;
-
-   } else {
-      printf("not vaild input");
-   }
-
-   printf("Final register int: %d\n", value);
-   return value;
 }
 
 
