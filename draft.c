@@ -257,6 +257,25 @@ int main()
 	   regVar = numberFunc(regVar, argsstr[1]);
 	   printf("final int from main: %d\n", regVar);
 	} 
+	    
+	val1var = regnumFunc(value, argsstr[2]);
+	if (isdigit(val1var))
+	{
+	   printf("val1var int is: %d\n", val1var);
+	} else {
+	   val1var = numberFunc(val1var, argsstr[2]);
+	   printf("final int from main: %d\n", val1var);
+	}
+
+	val2var = regnumFunc(value, argsstr[3]);
+	if (isdigit(val2var))
+	{
+	   printf("val2var int is: %d\n", val2var);
+	} else {
+	   val2var = numberFunc(val2var, argsstr[3]);
+	   printf("final int from main: %d\n", val2var);
+	}
+	
 
         //regVar
 	/*
@@ -302,7 +321,7 @@ int main()
 	*/
         
         //val1var
-        if (strcmp(argsstr[2], "r0,") == 0){
+        /*if (strcmp(argsstr[2], "r0,") == 0){
             val1var = 0;
         } else if (strcmp(argsstr[2], "r1,") == 0){
             val1var = 1;
@@ -339,9 +358,10 @@ int main()
 	    //int value = 0;
 	    val1var = numberFunc(val1var, argsstr[2]);
 	    //printf("final int vmain: %d\n", val1var);
-        }
+        } */
         
-        //val2var
+        //val2var 
+	    /*
         if (strcmp(argsstr[3], "r0") == 0){
             val2var = 0;
         } else if (strcmp(argsstr[3], "r1") == 0){
@@ -380,7 +400,7 @@ int main()
 	    val2var = numberFunc(val2var, argsstr[3]);
 	    //printf("final int vmain: %d\n", val2var);
         }
-        
+        */
                 
         if (strcmp(argsstr[0], "add") == 0)
         {
