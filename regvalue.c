@@ -1,57 +1,51 @@
-//this is the frag --curent working
-//this should pull out reg vlue descions to a different function
-//each instruction should do separate calls for each reg 
+//this is the frag --ready for implementation
+//this returns the regitser int var
 
 #include <stdio.h>
+#include <ctype.h>
 
 int regnumFunc(int, char[]);
 
 int main ()
 {
    int value = 0;
-   argsstr[] = {"r1,", "r2,", "r3"};
-   value = regnumFunc(value, argsstr[0]);
+   int value2 = 0;
+   //char argsstr[2];
+   char argsstr[] = "r2 ";
+   char temp1[] = "r16, ";
+   //printf("argsstr[0]: %c", argsstr[0]);
+   value = regnumFunc(value, argsstr);
+   value2 = regnumFunc(value2, temp1);
    printf("main value output: %d\n", value);
+   printf("main value output: %d\n", value2);
    return 0;
 }
 
 
 int regnumFunc(int value, char* input)
 {
-   char z[] = input;
+   
    char num[32];
-
-   printf("%s", input); // %s is format specifier
    int n = 0;
-   int i = 0;
-   int newindex = 0;
-   int finalint = 0;
-   n = sizeof(input)/sizeof(input[0]);
-   int totchars = n - 1;
-   int lastcharindex = totchars - 1;
-   printf("Totalchars: %d\n", totchars);
-   printf("Lastcharindex: %d\n", lastcharindex); 
+   int finalint =0;
+   printf("%s", input); // %s is format specifier
    if (input[0] == 'r') {
-      printf("First char is hash\n");
-
-      //n = sizeof(z)/sizeof(z[0]);
+      //printf("First char is r, register detected \n");
       
-      //printf("%d\n", n);
-      //n++;
-      for (int i = 1; i <= lastcharindex;) {
-	printf("Char at %d index = %c\n", i , input[i]);
-	
-        num[newindex] = input[i];
+      for (int i = 1; isdigit(input[i]);)
+      {
+	//printf("the first statement: %c\n", input[i]);
+	num[i-1] = input[i];
 	i++;
-	newindex++;
       }
       sscanf(num, "%d", &finalint);
-      printf("int: %d\n", finalint);
+      printf("Register: %d\n", finalint);
       value = finalint;
+
    } else {
       printf("not vaild input");
    }
 
-   printf("final int func: %d\n", value);
+   printf("Final register int: %d\n", value);
    return value;
 }
