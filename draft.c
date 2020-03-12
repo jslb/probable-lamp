@@ -8,6 +8,7 @@
 int R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15;
 
 int numberFunc(int, char[]);
+int regnumFunc(int, char[]);
 int value = 0;
 int numberFunc(int value, char* input)
 {
@@ -392,6 +393,34 @@ int main()
     
     //out of while loops, exits
     return 0;
+}
+
+int regnumFunc(int value, char* input)
+{
+   
+   char num[32];
+   int n = 0;
+   int finalint =0;
+   printf("%s", input); // %s is format specifier
+   if (input[0] == 'r') {
+      //printf("First char is r, register detected \n");
+      
+      for (int i = 1; isdigit(input[i]);)
+      {
+	//printf("the first statement: %c\n", input[i]);
+	num[i-1] = input[i];
+	i++;
+      }
+      sscanf(num, "%d", &finalint);
+      printf("Register: %d\n", finalint);
+      value = finalint;
+
+   } else {
+      printf("not vaild input");
+   }
+
+   printf("Final register int: %d\n", value);
+   return value;
 }
 
 
