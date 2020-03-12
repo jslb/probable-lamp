@@ -248,6 +248,8 @@ int main()
         //}
         
         printf("Instruction: %s", argsstr[0]);
+
+	//sets registers/values
         int regVar, val1var, val2var;
 	regVar = regnumFunc(value, argsstr[1]);
 	if (isdigit(regVar))
@@ -276,132 +278,7 @@ int main()
 	   printf("final int from main: %d\n", val2var);
 	}
 	
-
-        //regVar
-	/*
-        if (strcmp(argsstr[1], "r0,") == 0){
-            regVar = 0;
-        } else if (strcmp(argsstr[1], "r1,") == 0){
-            regVar = 1;
-        } else if (strcmp(argsstr[1], "r2,") == 0){
-            regVar = 2;
-        } else if (strcmp(argsstr[1], "r3,") == 0){
-            regVar = 3;
-        } else if (strcmp(argsstr[1], "r4,") == 0){
-            regVar = 4;
-        } else if (strcmp(argsstr[1], "r5,") == 0){
-            regVar = 5;
-        } else if (strcmp(argsstr[1], "r6,") == 0){
-            regVar = 6;
-        } else if (strcmp(argsstr[1], "r7,") == 0){
-            regVar = 7;
-        } else if (strcmp(argsstr[1], "r8,") == 0){
-            regVar = 8;
-        } else if (strcmp(argsstr[1], "r9,") == 0){
-            regVar = 9;
-        } else if (strcmp(argsstr[1], "r10,") == 0){
-            regVar = 10;
-        } else if (strcmp(argsstr[1], "r11,") == 0){
-            regVar = 11;
-        } else if (strcmp(argsstr[1], "r12,") == 0){
-            regVar = 12;
-        } else if (strcmp(argsstr[1], "r13,") == 0){
-            regVar = 13;
-        } else if (strcmp(argsstr[1], "r14,") == 0){
-            regVar = 14;
-        } else if (strcmp(argsstr[1], "r15,") == 0){
-            regVar = 15;
-        } else 
-        {
-            //printf("\n2nd frag: possible int");
-	    //int value = 0;
-	    regVar = numberFunc(regVar, argsstr[1]);
-	    //printf("final int vmain: %d\n", regVar);
-        }
-	*/
-        
-        //val1var
-        /*if (strcmp(argsstr[2], "r0,") == 0){
-            val1var = 0;
-        } else if (strcmp(argsstr[2], "r1,") == 0){
-            val1var = 1;
-        } else if (strcmp(argsstr[2], "r2,") == 0){
-            val1var = 2;
-        } else if (strcmp(argsstr[2], "r3,") == 0){
-            val1var = 3;
-        } else if (strcmp(argsstr[2], "r4,") == 0){
-            val1var = 4;
-        } else if (strcmp(argsstr[2], "r5,") == 0){
-            val1var = 5;
-        } else if (strcmp(argsstr[2], "r6,") == 0){
-            val1var = 6;
-        } else if (strcmp(argsstr[2], "r7,") == 0){
-            val1var = 7;
-        } else if (strcmp(argsstr[2], "r8,") == 0){
-            val1var = 8;
-        } else if (strcmp(argsstr[2], "r9,") == 0){
-            val1var = 9;
-        } else if (strcmp(argsstr[2], "r10,") == 0){
-            val1var = 10;
-        } else if (strcmp(argsstr[2], "r11,") == 0){
-            val1var = 11;
-        } else if (strcmp(argsstr[2], "r12,") == 0){
-            val1var = 12;
-        } else if (strcmp(argsstr[2], "r13,") == 0){
-            val1var = 13;
-        } else if (strcmp(argsstr[2], "r14,") == 0){
-            val1var = 14;
-        } else if (strcmp(argsstr[2], "r15,") == 0){
-            val1var = 15;
-        } else {
-            //printf("\nThird frag: possible int");
-	    //int value = 0;
-	    val1var = numberFunc(val1var, argsstr[2]);
-	    //printf("final int vmain: %d\n", val1var);
-        } */
-        
-        //val2var 
-	    /*
-        if (strcmp(argsstr[3], "r0") == 0){
-            val2var = 0;
-        } else if (strcmp(argsstr[3], "r1") == 0){
-            val2var = 1;
-        } else if (strcmp(argsstr[3], "r2") == 0){
-            val2var = 2;
-        } else if (strcmp(argsstr[3], "r3") == 0){
-            val2var = 3;
-        } else if (strcmp(argsstr[3], "r4") == 0){
-            val2var = 4;
-        } else if (strcmp(argsstr[3], "r5") == 0){
-            val2var = 5;
-        } else if (strcmp(argsstr[3], "r6") == 0){
-            val2var = 6;
-        } else if (strcmp(argsstr[3], "r7") == 0){
-            val2var = 7;
-        } else if (strcmp(argsstr[3], "r8") == 0){
-            val2var = 8;
-        } else if (strcmp(argsstr[3], "r9") == 0){
-            val2var = 9;
-        } else if (strcmp(argsstr[3], "r10") == 0){
-            val2var = 10;
-        } else if (strcmp(argsstr[3], "r11") == 0){
-            val2var = 11;
-        } else if (strcmp(argsstr[3], "r12") == 0){
-            val2var = 12;
-        } else if (strcmp(argsstr[3], "r13") == 0){
-            val2var = 13;
-        } else if (strcmp(argsstr[3], "r14") == 0){
-            val2var = 14;
-        } else if (strcmp(argsstr[3], "r15") == 0){
-            val2var = 15;
-        } else 
-        {
-            //int value = 0;
-	    val2var = numberFunc(val2var, argsstr[3]);
-	    //printf("final int vmain: %d\n", val2var);
-        }
-        */
-                
+	//instruction calls
         if (strcmp(argsstr[0], "add") == 0)
         {
             //printf("\ncall add func\n"); // want to give the function, the rest of the input string
