@@ -6,15 +6,13 @@
 //global vars
 //Register declaration
 int R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15;
-R2 = 5;
-R3 = 7;
 
 int numberFunc(int, char[]);
 int value = 0;
 int numberFunc(int value, char* input)
 {
    char num[32];
-   printf("%s", input); // %s is format specifier
+   //printf("%s", input); // %s is format specifier
    int n = 0;
    int i = 0;
    int newindex = 0;
@@ -25,30 +23,30 @@ int numberFunc(int value, char* input)
    //printf("Totalchars: %d\n", totchars);
    //printf("Lastcharindex: %d\n", lastcharindex);
    if (input[0] == '#') {
-      printf("First char is hash\n");
+      //printf("First char is hash\n");
       for (int i = 1; i <= lastcharindex;) {
-	printf("Char at %d index = %c\n", i , input[i]);
+	//printf("Char at %d index = %c\n", i , input[i]);
 	num[newindex] = input[i];
 	i++;
 	newindex++;
       }
       sscanf(num, "%d", &finalint);
-      printf("int: %d\n", finalint);
+      //printf("int: %d\n", finalint);
       value = finalint;
    } else {   
-      printf("not vaild input");
+      printf("Invaild input");
    }
-   printf("final int func: %d\n", value);
+   //printf("final int func: %d\n", value);
    return value;
 }
 
 
 void addFunc (int endreg, int val1var, int val2var)
 {
-    printf("addFunc vars:\n");
-    printf("%i\n", endreg);
-    printf("%i\n", val1var);
-    printf("%i\n", val2var);
+    //printf("addFunc vars:\n");
+    //printf("%i\n", endreg);
+    //printf("%i\n", val1var);
+    //printf("%i\n", val2var);
     
     int temptotalvar1 = 0;
     int temptotalvar2 = 0;
@@ -133,52 +131,36 @@ void addFunc (int endreg, int val1var, int val2var)
     //store in end register
     if (endreg == 0){
         R0 = temptotal;
-        printf("Register R0 value: %i\n", R0);
     } else if (endreg == 1){
         R1 = temptotal;
-        printf("Register R1 value: %i\n", R1);
     } else if (endreg == 2){
         R2 = temptotal;
-        printf("Register R2 value: %i\n", R2);
     } else if (endreg == 3){
         R3 = temptotal;
-        printf("Register R3 value: %i\n", R3);
     } else if (endreg == 4){
         R4 = temptotal;
-        printf("Register R4 value: %i\n", R4);
     } else if (endreg == 5){
         R5 = temptotal;
-        printf("Register R5 value: %i\n", R5);
     } else if (endreg == 6){
         R6 = temptotal;
-        printf("Register R6 value: %i\n", R6);
     } else if (endreg == 7){
         R7 = temptotal;
-        printf("Register R7 value: %i\n", R7);
     } else if (endreg == 8){
         R8 = temptotal;
-        printf("Register R8 value: %i\n", R8);
     } else if (endreg == 9){
         R9 = temptotal;
-        printf("Register R9 value: %i\n", R9);
     } else if (endreg == 10){
         R10 = temptotal;
-        printf("Register R10 value: %i\n", R10);
     } else if (endreg == 11){
         R11 = temptotal;
-        printf("Register R11 value: %i\n", R11);
     } else if (endreg == 12){
         R12 = temptotal;
-        printf("Register R12 value: %i\n", R12);
     } else if (endreg == 13){
         R13 = temptotal;
-        printf("Register R13 value: %i\n", R13);
     } else if (endreg == 14){
         R14 = temptotal;
-        printf("Register R14 value: %i\n", R14);
     } else if (endreg == 15){
         R15 = temptotal;
-        printf("Register R15 value: %i\n", R15);
     } else {
         printf("Invalid register/value");
     }
@@ -192,52 +174,36 @@ void movFunc (int endreg, int val1var)
 
     if (endreg == 0){                                                                                               
         R0 = val1var;
-	printf("Register R0 value: %i\n", R0);
     } else if (endreg == 1){
         R1 = val1var;
-	printf("Register R1 value: %i\n", R1);
     } else if (endreg == 2){
         R2 = val1var;
-	printf("Register R2 value: %i\n", R2);
     } else if (endreg == 3){
         R3 = val1var;
-	printf("Register R3 value: %i\n", R3);
     } else if (endreg == 4){
 	R4 = val1var;
-	printf("Register R4 value: %i\n", R4);
     } else if (endreg == 5){
 	R5 = val1var;
-	printf("Register R5 value: %i\n", R5);
     } else if (endreg == 6){
 	R6 = val1var;
-	printf("Register R6 value: %i\n", R6);
     } else if (endreg == 7){
 	R7 = val1var;
-	printf("Register R7 value: %i\n", R7); 
     } else if (endreg == 8){
 	R8 = val1var;
-	printf("Register R8 value: %i\n", R8); 
     } else if (endreg == 9){
 	R9 = val1var;
-	printf("Register R9 value: %i\n", R9);
     } else if (endreg == 10){
 	R10 = val1var; 
-        printf("Register R10 value: %i\n", R10); 
     } else if (endreg == 11){ 
 	R11 = val1var;
-	printf("Register R11 value: %i\n", R11);
     } else if (endreg == 12){
 	R12 = val1var;
-	printf("Register R12 value: %i\n", R12);
     } else if (endreg == 13){
 	R13 = val1var;
-	printf("Register R13 value: %i\n", R13);
     } else if (endreg == 14){
 	R14 = val1var;
-	printf("Register R14 value: %i\n", R14);
     } else if (endreg == 15){
 	R15 = val1var;
-	printf("Register R15 value: %i\n", R15);
     } else {
 	printf("Invalid register/value");
     }
@@ -260,7 +226,7 @@ int main()
         
         //reads, stores, and prints, input
         fgets(inputstr, sizeof(inputstr), stdin);  // read string
-        printf("You entered: ");
+        //printf("You entered: ");
         puts(inputstr);    // display string
         
         char *frag = strtok(inputstr, " ");
@@ -269,199 +235,151 @@ int main()
         // loop through the string to split at each " "
         while( frag != NULL ) 
         {
-            printf( " %s\n", frag ); //printing each
+            //printf( " %s\n", frag ); //printing each
             argsstr[counter++] = frag;
             frag = strtok(NULL, " ");
         }
         
         //add each frag into new array (argsstr)
-        int p;
-        for (p = 0; p < counter; ++p)
-        {
-            printf( "%s\n", argsstr[p]) ;
-        }
+        //int p;
+       // for (p = 0; p < counter; ++p)
+        //{
+         //   printf( "%s\n", argsstr[p]) ;
+        //}
         
         printf("Instruction: %s", argsstr[0]);
         int regVar, val1var, val2var;
         //regVar
         if (strcmp(argsstr[1], "r0,") == 0){
             regVar = 0;
-            printf("\nregVar = 0");
         } else if (strcmp(argsstr[1], "r1,") == 0){
             regVar = 1;
-            printf("\nregVar = 1");
         } else if (strcmp(argsstr[1], "r2,") == 0){
             regVar = 2;
-            printf("\nregVar = 2");
         } else if (strcmp(argsstr[1], "r3,") == 0){
             regVar = 3;
-            printf("\nregVar = 3");
         } else if (strcmp(argsstr[1], "r4,") == 0){
             regVar = 4;
-            printf("\nregVar = 4");
         } else if (strcmp(argsstr[1], "r5,") == 0){
             regVar = 5;
-            printf("\nregVar = 5");
         } else if (strcmp(argsstr[1], "r6,") == 0){
             regVar = 6;
-            printf("\nregVar = 6");
         } else if (strcmp(argsstr[1], "r7,") == 0){
             regVar = 7;
-            printf("\nregVar = 7");
         } else if (strcmp(argsstr[1], "r8,") == 0){
             regVar = 8;
-            printf("\nregVar = 8");
         } else if (strcmp(argsstr[1], "r9,") == 0){
             regVar = 9;
-            printf("\nregVar = 9");
         } else if (strcmp(argsstr[1], "r10,") == 0){
             regVar = 10;
-            printf("\nregVar = 10");
         } else if (strcmp(argsstr[1], "r11,") == 0){
             regVar = 11;
-            printf("\nregVar = 11");
         } else if (strcmp(argsstr[1], "r12,") == 0){
             regVar = 12;
-            printf("\nregVar = 12");
         } else if (strcmp(argsstr[1], "r13,") == 0){
             regVar = 13;
-            printf("\nregVar = 13");
         } else if (strcmp(argsstr[1], "r14,") == 0){
             regVar = 14;
-            printf("\nregVar = 14");
         } else if (strcmp(argsstr[1], "r15,") == 0){
             regVar = 15;
-            printf("\nregVar = 15");
         } else 
         {
             //printf("\n2nd frag: possible int");
 	    //int value = 0;
 	    regVar = numberFunc(regVar, argsstr[1]);
-	    printf("final int vmain: %d\n", regVar);
+	    //printf("final int vmain: %d\n", regVar);
         }
         
         //val1var
         if (strcmp(argsstr[2], "r0,") == 0){
             val1var = 0;
-            printf("\nval1var = 0");
         } else if (strcmp(argsstr[2], "r1,") == 0){
             val1var = 1;
-            printf("\nval1var = 1");
         } else if (strcmp(argsstr[2], "r2,") == 0){
             val1var = 2;
-            printf("\nval1var = 2");
         } else if (strcmp(argsstr[2], "r3,") == 0){
             val1var = 3;
-            printf("\nval1var = 3");
         } else if (strcmp(argsstr[2], "r4,") == 0){
             val1var = 4;
-            printf("\nval1var = 4");
         } else if (strcmp(argsstr[2], "r5,") == 0){
             val1var = 5;
-            printf("\nval1var = 5");
         } else if (strcmp(argsstr[2], "r6,") == 0){
             val1var = 6;
-            printf("\nval1var = 6");
         } else if (strcmp(argsstr[2], "r7,") == 0){
             val1var = 7;
-            printf("\nval1var = 7");
         } else if (strcmp(argsstr[2], "r8,") == 0){
             val1var = 8;
-            printf("\nval1var = 8");
         } else if (strcmp(argsstr[2], "r9,") == 0){
             val1var = 9;
-            printf("\nval1var = 9");
         } else if (strcmp(argsstr[2], "r10,") == 0){
             val1var = 10;
-            printf("\nval1var = 10");
         } else if (strcmp(argsstr[2], "r11,") == 0){
             val1var = 11;
-            printf("\nval1var = 11");
         } else if (strcmp(argsstr[2], "r12,") == 0){
             val1var = 12;
-            printf("\nval1var = 12");
         } else if (strcmp(argsstr[2], "r13,") == 0){
             val1var = 13;
-            printf("\nval1var = 13");
         } else if (strcmp(argsstr[2], "r14,") == 0){
             val1var = 14;
-            printf("\nval1var = 14");
         } else if (strcmp(argsstr[2], "r15,") == 0){
             val1var = 15;
-            printf("\nval1var = 15");
         } else {
             //printf("\nThird frag: possible int");
 	    //int value = 0;
 	    val1var = numberFunc(val1var, argsstr[2]);
-	    printf("final int vmain: %d\n", val1var);
+	    //printf("final int vmain: %d\n", val1var);
         }
         
         //val2var
         if (strcmp(argsstr[3], "r0") == 0){
             val2var = 0;
-            printf("\nval2var = 0");
         } else if (strcmp(argsstr[3], "r1") == 0){
             val2var = 1;
-            printf("\nval2var = 1");
         } else if (strcmp(argsstr[3], "r2") == 0){
             val2var = 2;
-            printf("\nval2var = 2");
         } else if (strcmp(argsstr[3], "r3") == 0){
             val2var = 3;
-            printf("\nval2var = 3");
         } else if (strcmp(argsstr[3], "r4") == 0){
             val2var = 4;
-            printf("\nval2var = 4");
         } else if (strcmp(argsstr[3], "r5") == 0){
             val2var = 5;
-            printf("\nval2var = 5");
         } else if (strcmp(argsstr[3], "r6") == 0){
             val2var = 6;
-            printf("\nval2var = 6");
         } else if (strcmp(argsstr[3], "r7") == 0){
             val2var = 7;
-            printf("\nval2var = 7");
         } else if (strcmp(argsstr[3], "r8") == 0){
             val2var = 8;
-            printf("\nval2var = 8");
         } else if (strcmp(argsstr[3], "r9") == 0){
             val2var = 9;
-            printf("\nval2var = 9");
         } else if (strcmp(argsstr[3], "r10") == 0){
             val2var = 10;
-            printf("\nval2var = 10");
         } else if (strcmp(argsstr[3], "r11") == 0){
             val2var = 11;
-            printf("\nval2var = 11");
         } else if (strcmp(argsstr[3], "r12") == 0){
             val2var = 12;
-            printf("\nval2var = 12");
         } else if (strcmp(argsstr[3], "r13") == 0){
             val2var = 13;
-            printf("\nval2var = 13");
         } else if (strcmp(argsstr[3], "r14") == 0){
             val2var = 14;
-            printf("\nval2var = 14");
         } else if (strcmp(argsstr[3], "r15") == 0){
             val2var = 15;
-            printf("\nval2var = 15");
         } else 
         {
             //int value = 0;
 	    val2var = numberFunc(val2var, argsstr[3]);
-	    printf("final int vmain: %d\n", val2var);
+	    //printf("final int vmain: %d\n", val2var);
         }
         
                 
         if (strcmp(argsstr[0], "add") == 0)
         {
-            printf("\ncall add func\n"); // want to give the function, the rest of the input string
+            //printf("\ncall add func\n"); // want to give the function, the rest of the input string
             addFunc(regVar, val1var, val2var); //passing the inst to addFunc
 	    regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
         } 
         else if (strcmp(argsstr[0], "mov") == 0)
         {
-            printf("\ncall move func\n");
+            //printf("\ncall move func\n");
             movFunc(regVar, val1var);
 	    regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
         } 
@@ -498,21 +416,5 @@ void regPrintFunc(int R0, int R1, int R2, int R3, int R4, int R5, int R6, int R7
     printf("\n*  R15:  %d", R15);
     printf("\n********************\n\n");
 }
-/*int registerFunc(char *reg)
-{
-    printf("string: %s", reg);
     
-    if (strcmp(tolower(reg), "r0") == 0)
-    {
-        regCode = 0;
-    } else if (strcmp(tolower(reg), "r1") == 0)
-    {
-        regCode = 1;
-    } else if (strcmp(tolower(reg), "r2") == 0)
-    {
-        regCode = 2;
-    } 
     
-    return regCode;
-    
-}*/

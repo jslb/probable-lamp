@@ -1,18 +1,24 @@
+//this is the frag --curent working
+//this should pull out reg vlue descions to a different function
+//each instruction should do separate calls for each reg 
+
 #include <stdio.h>
-int numberFunc(int, char[]);
+
+int regnumFunc(int, char[]);
 
 int main ()
 {
    int value = 0;
-   value = numberFunc(value, "#789");
-   printf("final int vmain: %d\n", value);
+   argsstr[] = {"r1,", "r2,", "r3"};
+   value = regnumFunc(value, argsstr[0]);
+   printf("main value output: %d\n", value);
    return 0;
 }
 
 
-int numberFunc(int value, char* input)
+int regnumFunc(int value, char* input)
 {
-   //char z[] = input;
+   char z[] = input;
    char num[32];
 
    printf("%s", input); // %s is format specifier
@@ -25,7 +31,7 @@ int numberFunc(int value, char* input)
    int lastcharindex = totchars - 1;
    printf("Totalchars: %d\n", totchars);
    printf("Lastcharindex: %d\n", lastcharindex); 
-   if (input[0] == '#') {
+   if (input[0] == 'r') {
       printf("First char is hash\n");
 
       //n = sizeof(z)/sizeof(z[0]);
