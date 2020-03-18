@@ -10,6 +10,8 @@ int numberFunc(int, char[]);
 int regnumFunc(int, char[]);
 int value = 0;
 
+int tempREG = 0;
+
 #define MAXCHAR 1000
 int main() {
     FILE *fp;
@@ -100,13 +102,16 @@ int main() {
 			}
 
 			val1var = regnumFunc(value, argsstr[1]);
+
 			if (isdigit(val1var))
 			{
 				//printf("\nval1var int is: %d\n", val1var);
 			} else {
 				val1var = numberFunc(val1var, argsstr[1]);
+				//val1var = 200;
 				//printf("\nfinal int from main: %d\n", val1var);
 			}
+
 			if (argsstr[2] == NULL) {
 				//here
 			} else {
@@ -115,8 +120,10 @@ int main() {
 				{
 					//printf("\nval2var int is: %d\n", val2var);
 				} else {
-					val2var = numberFunc(val2var, argsstr[3]);
+					tempREG = numberFunc(val2var, argsstr[2]);
 					//printf("\nfinal int from main: %d\n", val2var);
+					val2var = 200;
+
 				}
 			}
 
@@ -195,6 +202,8 @@ int numberFunc(int value, char* input)
       }
       sscanf(num, "%d", &finalint);
       //printf("int: %d\n", finalint);
+	  tempREG = finalint;
+	  printf("tempREG: %d", tempREG);
       value = finalint;
    } else {
       //printf("\tnumberFunc - Invaild input");
@@ -227,8 +236,8 @@ void regPrintFunc(int R0, int R1, int R2, int R3, int R4, int R5, int R6, int R7
 
 void movFunc (int endreg, int val1var)
 {
-    printf("movFunc vars:\n");
-    printf("%i\n", endreg);
+    //printf("movFunc vars:\n");
+    //printf("%i\n", endreg);
     //printf("%i\n", val1var);
 
     if (endreg == 0){
@@ -350,6 +359,8 @@ void addFunc (int endreg, int val1var, int val2var)
         temptotalvar2 = R14;
     } else if (val2var == 15){
         temptotalvar2 = R15;
+	} else if (val2var == 200){
+		temptotalvar2 = tempREG;
     } else {
         printf("Invalid register/value");
     }
