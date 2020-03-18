@@ -12,6 +12,7 @@ int value = 0;
 
 int tempREG = 0;
 
+
 #define MAXCHAR 1000
 int main() {
     FILE *fp;
@@ -65,9 +66,15 @@ int main() {
 		//detects label
 		if (strstr(finalstr, ":") != NULL) { 
 			printf("Line %d is a label: %s\n", linecount, finalstr);
+			//TODO call labelFunc
+			//TODO then
+			//TODO label = labelFunc(lab, finalstr);
 		}
 		else if (strstr(str, ":") != NULL ) {
 			printf("Line %d is a label: %s\n", linecount, str);
+			//TODO call labelFunc
+			//TODO then
+			// label = labelFunc(lab, finalstr);
 		} else {
 			//split by tab - puts instrction in instarr[0]
 			char* instfrag = strtok(finalstr, "\t");
@@ -78,6 +85,7 @@ int main() {
 				instarr[count++] = instfrag;
 				instfrag = strtok(NULL, "\t");
 			}		
+			printf("Current label: %s\n", label);
 			printf("Instruction: %s\n", instarr[0]);
 
 			//split reaminer od line/string by ", "
