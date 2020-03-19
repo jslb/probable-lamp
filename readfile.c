@@ -62,19 +62,30 @@ int main() {
 			}
 			//printf("firstchar of new -%c-\n", finalstr[0]);
 		} 
-		
+		int z = 0;
 		//detects label
 		if (strstr(finalstr, ":") != NULL) { 
-			printf("Line %d is a label: %s\n", linecount, finalstr);
-			//TODO call labelFunc
-			//TODO then
-			//TODO label = labelFunc(lab, finalstr);
+			//printf("Line %d is a label: %s\n", linecount, finalstr);
+            for (int i = 0; finalstr[i] != ':';) {
+				label[i] = finalstr[i];
+				i++;
+				z = i;
+				//printf("i: %d\n", i);
+			}
+			label[z] = '\0';
+			printf("Line %d is a label: %s\n", linecount, label);
+			
 		}
 		else if (strstr(str, ":") != NULL ) {
-			printf("Line %d is a label: %s\n", linecount, str);
-			//TODO call labelFunc
-			//TODO then
-			// label = labelFunc(lab, finalstr);
+			//printf("Line %d is a label: %s\n", linecount, str);
+			for (int i = 0; str[i] != ':';) {
+				label[i] = str[i];
+				i++;
+				z = i;
+			}
+			label[z] = '\0';
+			printf("Line %d is a label: %s\n", linecount, label);
+			
 		} else {
 			//split by tab - puts instrction in instarr[0]
 			char* instfrag = strtok(finalstr, "\t");
@@ -150,6 +161,8 @@ int main() {
 		}
 
 		linecount++;
+		str[0] = '\0';
+		finalstr[0] = '\0';
 		
     } 
 
