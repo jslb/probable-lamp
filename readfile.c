@@ -36,21 +36,11 @@ int main() {
 		PC = PC+4;
 		printf("PC: %d\n", PC);
 
-		//if str contains : it is a label - store this as global var
-			//change in label results in some other execution
-
-		//then instruction string 
-			//process instruction, registers and vars 
-
-		//call instruction function
-
 		//removes tab if input doesnt start with number or letter
 		//write input to finalstr[]
 		int finalstrindex = 0;
         if (isalpha(str[0]) || isdigit(str[0])){ 
-			//printf("str start with a letter"); 
-        //else if (isdigit(str[0])) 
-			//printf("str starts with a number"); 
+			//printf("str start with a letter or digit"); 
 		}
 		else {
 			int n = sizeof(str)/sizeof(str[0]) - 2;
@@ -96,8 +86,14 @@ int main() {
 				instarr[count++] = instfrag;
 				instfrag = strtok(NULL, "\t");
 			}		
-			printf("Current label: %s\n", label);
-			printf("Instruction: %s\n", instarr[0]);
+
+			if (instfrag == NULL)
+			{
+				//do nothig here
+			} else {
+				printf("Current label: %s\n", label);
+				printf("Instruction: %s\n", instarr[0]);
+			}
 
 			//split reaminer od line/string by ", "
 			char* regfrag = strtok(instarr[1], ", ");
@@ -156,8 +152,8 @@ int main() {
 				movFunc(regVar, val1var);
 				regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 			} else {
-				printf("Unknown Instruction\n\n");
-			}
+				printf("Whitespace or Unknown Instruction\n\n");
+			 }
 		}
 
 		linecount++;
@@ -224,7 +220,7 @@ int numberFunc(int value, char* input)
       sscanf(num, "%d", &finalint);
       //printf("int: %d\n", finalint);
 	  tempREG = finalint;
-	  printf("tempREG: %d", tempREG);
+	  //printf("tempREG: %d", tempREG);
       value = finalint;
    } else {
       //printf("\tnumberFunc - Invaild input");
