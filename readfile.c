@@ -166,6 +166,10 @@ int main() {
                fclose(fp);
                return 0;
             }
+			} else if (strcmp(instarr[0], "cmp") == 0)
+			{
+				cmpFunc(regVar, val1var);
+				//regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 			} else {
 				printf("Whitespace or Unknown Instruction - Error causes: %d\n\n", instarr[0]);
 			}
@@ -561,4 +565,49 @@ void subFunc (int endreg, int val1var, int val2var)
     } else {
         printf("Invalid register/value");
     }
+}
+
+void cmpFunc (int reg1, int e2)
+{
+	 int e1;
+    if (reg1 == 0){
+        e1 = R0;
+    } else if (reg1 == 1){
+        e1 = R1;
+    } else if (reg1 == 2){
+        e1 = R2;
+    } else if (reg1 == 3){
+        e1 = R3;
+    } else if (reg1 == 4){
+    	e1 = R4;
+    } else if (reg1 == 5){
+    	e1 = R5;
+    } else if (reg1 == 6){
+    e1 = R6;
+    } else if (reg1 == 7){
+    e1 = R7;
+    } else if (reg1 == 8){
+    e1 = R8;
+    } else if (reg1 == 9){
+		e1 = R9;
+    } else if (reg1 == 10){
+    e1 = R10;
+    } else if (reg1 == 11){
+    e1 = R11;
+    } else if (reg1 == 12){
+    e1 = R12;
+    } else if (reg1 == 13){
+    e1 = R13;
+    } else if (reg1 == 14){
+    e1 = R14;
+    } else if (reg1 == 15){
+    e1 = R15;
+    } else {
+    printf("Invalid register/value");
+    }
+	
+	
+
+    printf("e1: %i\n", e1);
+    printf("e2: %i\n", e2);
 }

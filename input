@@ -1,6 +1,4 @@
 main:
 	mov	r1, #10
-	mov	r2, #2
-	sub	r3, r1, #7
+	cmp	r1, #111
 	swi	0
-	swi	SWI_Exit
