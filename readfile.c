@@ -95,6 +95,7 @@ int main() {
 				printf("Instruction: %s\n", instarr[0]);
 			}
 
+
 			//split reaminer od line/string by ", "
 			char* regfrag = strtok(instarr[1], ", ");
 			int count2 = 0;
@@ -151,9 +152,23 @@ int main() {
 			{	
 				movFunc(regVar, val1var);
 				regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
+			} else if (strcmp(instarr[0], "sub") == 0)
+         {
+            subFunc(regVar, val1var, val2var);
+            regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
+			} else if (strcmp(instarr[0], "swi") == 0)
+			{
+				if (strcmp(argsstr[0], "0\n") == 0)
+				{
+					printf("SWI Function Interrupt\n\n");
+				} else {
+               printf("SWI System Exit\n\n");
+               fclose(fp);
+               return 0;
+            }
 			} else {
-				printf("Whitespace or Unknown Instruction\n\n");
-			 }
+				printf("Whitespace or Unknown Instruction - Error causes: %d\n\n", instarr[0]);
+			}
 		}
 
 		linecount++;
@@ -382,6 +397,133 @@ void addFunc (int endreg, int val1var, int val2var)
         printf("Invalid register/value");
     }
     temptotal = temptotalvar1 + temptotalvar2;
+
+    //store in end register
+    if (endreg == 0){
+        R0 = temptotal;
+    } else if (endreg == 1){
+        R1 = temptotal;
+    } else if (endreg == 2){
+        R2 = temptotal;
+    } else if (endreg == 3){
+        R3 = temptotal;
+    } else if (endreg == 4){
+        R4 = temptotal;
+    } else if (endreg == 5){
+        R5 = temptotal;
+    } else if (endreg == 6){
+        R6 = temptotal;
+    } else if (endreg == 7){
+        R7 = temptotal;
+    } else if (endreg == 8){
+        R8 = temptotal;
+    } else if (endreg == 9){
+        R9 = temptotal;
+    } else if (endreg == 10){
+        R10 = temptotal;
+    } else if (endreg == 11){
+        R11 = temptotal;
+    } else if (endreg == 12){
+        R12 = temptotal;
+    } else if (endreg == 13){
+        R13 = temptotal;
+    } else if (endreg == 14){
+        R14 = temptotal;
+    } else if (endreg == 15){
+        R15 = temptotal;
+    } else {
+        printf("Invalid register/value");
+    }
+}
+
+
+//subFunction
+void subFunc (int endreg, int val1var, int val2var)
+{
+    //printf("addFunc vars:\n");
+    //printf("%i\n", endreg);
+    //printf("%i\n", val1var);
+    //printf("%i\n", val2var);
+
+    int temptotalvar1 = 0;
+    int temptotalvar2 = 0;
+    int temptotal = 0;
+
+    //val1var
+    if (val1var == 0){
+        temptotalvar1 = R0;
+    } else if (val1var == 1){
+        temptotalvar1 = R1;
+    } else if (val1var == 2){
+        temptotalvar1 = R2;
+    } else if (val1var == 3){
+        temptotalvar1 = R3;
+    } else if (val1var == 4){
+        temptotalvar1 = R4;
+    } else if (val1var == 5){
+        temptotalvar1 = R5;
+    } else if (val1var == 6){
+        temptotalvar1 = R6;
+    } else if (val1var == 7){
+        temptotalvar1 = R7;
+    } else if (val1var == 8){
+        temptotalvar1 = R8;
+    } else if (val1var == 9){
+        temptotalvar1 = R9;
+    } else if (val1var == 10){
+        temptotalvar1 = R10;
+    } else if (val1var == 11){
+        temptotalvar1 = R11;
+    } else if (val1var == 12){
+        temptotalvar1 = R12;
+    } else if (val1var == 13){
+        temptotalvar1 = R13;
+    } else if (val1var == 14){
+        temptotalvar1 = R14;
+    } else if (val1var == 15){
+        temptotalvar1 = R15;
+    } else {
+        printf("Invalid register/value");
+    }
+    //val2var
+    if (val2var == 0){
+        temptotalvar2 = R0;
+    } else if (val2var == 1){
+        temptotalvar2 = R1;
+    } else if (val2var == 2){
+        temptotalvar2 = R2;
+    } else if (val2var == 3){
+        temptotalvar2 = R3;
+    } else if (val2var == 4){
+        temptotalvar2 = R4;
+    } else if (val2var == 5){
+        temptotalvar2 = R5;
+    } else if (val2var == 6){
+        temptotalvar2 = R6;
+    } else if (val2var == 7){
+        temptotalvar2 = R7;
+    } else if (val2var == 8){
+        temptotalvar2 = R8;
+    } else if (val2var == 9){
+        temptotalvar2 = R9;
+    } else if (val2var == 10){
+        temptotalvar2 = R10;
+    } else if (val2var == 11){
+        temptotalvar2 = R11;
+    } else if (val2var == 12){
+        temptotalvar2 = R12;
+    } else if (val2var == 13){
+        temptotalvar2 = R13;
+    } else if (val2var == 14){
+        temptotalvar2 = R14;
+    } else if (val2var == 15){
+        temptotalvar2 = R15;
+	} else if (val2var == 200){
+		temptotalvar2 = tempREG;
+    } else {
+        printf("Invalid register/value");
+    }
+    temptotal = temptotalvar1 - temptotalvar2;
 
     //store in end register
     if (endreg == 0){
