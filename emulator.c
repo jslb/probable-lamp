@@ -51,41 +51,65 @@ int main() {
 				x++;
 			}
 		}
+
+		//Extracts Instruction
 		int c = 0;
 		char instruction[10] = "";
-	
+		//Store instruction in var
 		while (isalpha(newline[c]) > 0)
 		{
 			instruction[c] = newline[c];
 			c++;
 		}
-
-		char element1[10] = "";
 		
-		//c = c + 1;
+		//Extracts element1
 		int nc = 0;
+		char element[10] = "";
 		while (isspace(newline[c]) < 0)		
 		{
-			element1[nc] = newline[c];
+			element[nc] = newline[c];
 			c++;
 			nc++; 
 		}
-
-		char element2[10] = "";
-
-		c++;
 		int nnc = 0;
+		char element1[10] = "";
+		c++;
+
 		while (isspace(newline[c]) == 0)
+		{
+			element1[nnc] = newline[c];
+			c++;
+			nnc++;
+		}
+		
+		//Extracts element2
+		char element2[10] = "";
+		c++;
+		nnc = 0;
+		while (isspace(newline[c]) == 0 )
 		{
 			element2[nnc] = newline[c];
 			c++;
 			nnc++;
 		}
 
+		//Etracts element3
+		char element3[10] = "";
+		c++;
+		nnc = 0;
+		while (isspace(newline[c]) == 0)
+		{
+			element3[nnc] = newline[c];
+			c++;
+			nnc++;
+		}
+
+		
 		//printf("%s\n", newline); 
 		printf("Instuction: %s\n", instruction);
-		printf("Element 1:%s\n", element1);
-		printf("Element 2:%s\n", element2);
+		printf("\tElement 1:%s\n", element1);
+		printf("\tElement 2:%s\n", element2);
+		printf("\tElement 3:%s\n", element3);
 	}
 
 	printf("\n");
