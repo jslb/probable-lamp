@@ -36,6 +36,14 @@ int main() {
 		if (isalpha(line[0]) || isdigit(line[0]))
 		{
 			//Line starts with letter or digit
+			//Stores in new line --> sends to label
+			for (int i = 0; i <= 20;)
+			{
+				newline[i] = line[x];
+				i++;
+				x++;
+			}
+
 		} else {
 			//Line starts with some whitescape char
 			//While loop determines index of first non-ws char (int x)
@@ -62,6 +70,23 @@ int main() {
 			c++;
 		}
 		
+		//If the next char is as ':'
+		//Store as label var
+		//Set instruction as blank
+		char labelstr[10] = "";
+		int d = 0;
+		if (newline[c] == ':')
+		{
+			while (isalpha(newline[d]) > 0)
+			{
+				labelstr[d] = newline[d];
+				d++;
+			}
+
+			printf("This is a label: %s\n", labelstr);
+			
+		}
+
 		//Extracts element1
 		int nc = 0;
 		char element[10] = "";
