@@ -1,22 +1,7 @@
 main:
-				ldr    r4,=foundit 
- 				mov    r5, #10
-	here:
-				ldrb  r3, [r4]        
-				cmp  r3, #111
-				beq   found           
-				add   r4, r4, #1
-				sub   r5, r5, #1    
-				cmp  r5, #0
-				bgt    here
-				ldr r1,=notfound    
-				b exit
-	found:
-				ldr r1,=foundit    
-	exit:
-				mov r7, #4
-				mov r0, #1
-				mov r2, #10
-				swi SWI_Exit
-				mov r7, #1
-				swi SWI_Exit
+	mov	r1, #1
+	mov	r3, #2
+	add	r2, r1, r3
+
+	mov	r7, #1
+	swi	SWI_Exit
