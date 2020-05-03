@@ -63,21 +63,52 @@ int main() {
 		}
 
 		//Extracts Instruction
-		int c = 0;
-		char instruction[10] = "";
+		int c = PC;
+		int index = 0;
+		char instruction[MAXCHAR];
 		//Store instruction in var
-		while (isalpha(newline[c]) > 0)
+
+		if (isalpha(newline[index]) > 0)
 		{
-			instruction[c] = newline[c];
+			instruction[PC] = newline[index];
+			if (isalpha(newline[index+1]) > 0)
+			{
+				instruction[PC+1] = newline[index+1];
+				if (isalpha(newline[index+2]) > 0)
+				{
+					instruction[PC+2] = newline[index+2];
+					if (isalpha(newline[index+3]) > 0)
+					{
+						instruction[PC+3] = newline[index+3];
+					} else {
+						instruction[PC+3] = '\0';
+					}
+				} else {
+					instruction[PC+2] = '\0';
+				}
+			} else {
+				instruction[PC+1] = '\0';
+			}
+		} else {
+			instruction[PC] = '\0';
+		}
+
+/*
+		while (isalpha(newline[index]) > 0)
+		{
+			instruction[c] = newline[index];
+			index++;
 			c++;
 		}
+*/		
+		//printf("\tInstruction: '%c%c%c' ", instruction[PC], instruction[PC+1], instruction[PC+2]);
 		
 		//If the next char is as ':'
 		//Store as label var
 		//Set instruction as blank
 		char labelstr[10] = "";
 		int d = 0;
-		if (newline[c] == ':')
+		if (newline[index] == ':')
 		{
 			while (isalpha(newline[d]) > 0)
 			{
@@ -90,59 +121,72 @@ int main() {
 		}
 
 		//Extracts element1
-		int nc = 0;
-		char element[10] = "";
-		while (isspace(newline[c]) < 0)		
+		
+		char element1[MAXCHAR];
+		d = PC;
+		index = index + 1;
+		while (isspace(newline[index]) == 0)		
 		{
-			element[nc] = newline[c];
-			c++;
-			nc++; 
-		}
-		int nnc = 0;
-		char element1[10] = "";
-		c++;
-
-		while (isspace(newline[c]) == 0)
-		{
-			element1[nnc] = newline[c];
-			c++;
-			nnc++;
+			element1[d] = newline[index];
+			d++;
+			index++; 
 		}
 		
-		//Extracts element2
-		char element2[10] = "";
-		c++;
-		nnc = 0;
-		while (isspace(newline[c]) == 0 )
+		char element2[MAXCHAR];
+		d = PC;
+		index = index + 1;
+		while (isspace(newline[index]) == 0)
 		{
-			element2[nnc] = newline[c];
-			c++;
-			nnc++;
+			element1[d] = newline[index];
+			d++;
+			index++;
 		}
 
-		//Etracts element3
-		char element3[10] = "";
-		c++;
-		nnc = 0;
-		while (isspace(newline[c]) == 0)
+		char element3[MAXCHAR];
+		d = PC;
+		index = index + 1;
+		while (isspace(newline[index]) == 0)
 		{
-			element3[nnc] = newline[c];
-			c++;
-			nnc++;
+			element2[d] = newline[index];
+			d++;
+			index++;
 		}
 
-		
-		//printf("%s\n", newline); 
-		printf("Instuction: %s\n", instruction);
-		printf("\tElement 1:%s\n", element1);
-		printf("\tElement 2:%s\n", element2);
-		printf("\tElement 3:%s\n", element3);
+		d = PC;
+		index = index + 1;
+		while (isspace(newline[index]) == 0)
+		{
+			element3[d] = newline[index];
+			d++;
+			index++;
+		}
 
-
-		//TODO
 		//Store the instrction and element values in mem[PC]
-		//
+
+		printf("\tInstruction: '%c%c%c' \n", instruction[PC], instruction[PC+1], instruction[PC+2]);
+		printf("\tElement1: '%c%c%c' \n", element1[PC], element1[PC+1], element1[PC+2]);
+		printf("\tElement2: '%c%c%c' \n", element2[PC], element2[PC+1], element2[PC+2]);
+		printf("\tElement3: '%c%c%c' \n", element3[PC], element3[PC+1], element3[PC+2]);
+
+		if (instruction[PC] == 'a' && instruction[PC+1] == 'd' && instruction[PC+2] == 'd' && instruction[PC+3] == '\0')
+		{
+			printf("ADD FUNC\n");
+			//TODO
+			//if if element2[PC] == '#' send to numFunc if == "r" sent to regFunc
+			//if if element3[PC] == '#' send to numFunc if == "r" sent to regFunc 
+			//add responses
+			//use element1[PC+1], element1[PC+2]) to store value in reg
+			//Call printRegFunc 
+		} else if (instruction[PC] == 'm' && instruction[PC+1] == 'o' && instruction[PC+2] == 'v' && instruction[PC+3] == '\0')
+		{
+			printf("MOV FUNC\n");
+		} else if (instruction[PC] == 's' && instruction[PC+1] == 'w' && instruction[PC+2] == 'i' && instruction[PC+3] == '\0')
+        {   
+            printf("SWI FUNC\n");
+        }
+
 		PC = PC + 4;
+
 	}
 
 	printf("\n");
