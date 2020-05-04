@@ -10,6 +10,12 @@ int numFunc(int, char, char, char);
 int regFunc(int, char, char);
 void storeRegFunc(char, char, int);
 
+//Global CMP variable
+//	1 = e1>
+//	2 = e1==e2
+//	3 = e2>
+int cmpGlob = 0;
+
 int main() {
 	//Set up for file read
 	FILE *fp;
@@ -101,11 +107,12 @@ int main() {
 		
 		//Identifies if line is a label
 		char labelarr[MAXCHAR];
+		char* labelarrstr;
 		int labeli = PC*4;
 		int temp = 0;
 		if (strstr(newline, ":") != NULL)
 		{
-			char* labelarrstr = strtok(newline, ":");
+			labelarrstr = strtok(newline, ":");
 			printf("\tThis is a label: %s\n", labelarrstr);
 
 			//Stores char in labelarr with one -> one function of PC*4
@@ -245,7 +252,6 @@ int main() {
 			}
 
 			value = e2int + e3int;
-			printf("\tvalue: %d\n",value);
 			storeRegFunc(element1[PC+1], element1[PC+2], value);
 			regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 			
@@ -300,15 +306,86 @@ int main() {
             }
 
             value = e2int - e3int;
-            printf("\tvalue: %d\n",value);
             storeRegFunc(element1[PC+1], element1[PC+2], value);
             regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
+		} else if (instruction[PC] == 'l' && instruction[PC+1] == 'd' && instruction[PC+2] == 'r' && instruction[PC+3] == '\0')
+		{
+			printf("LDR\n");	
+		} else if (instruction[PC] == 'l' && instruction[PC+1] == 'd' && instruction[PC+2] == 'r' && instruction[PC+3] == 'b')
+		{
+			printf("LDRB\n");
+		} else if (instruction[PC] == 'c' && instruction[PC+1] == 'm' && instruction[PC+2] == 'p' && instruction[PC+3] == '\0')
+		{
+			printf("CMP\n");
+			//TODO
+			//cmp values and store result in global var (cmpGlob)
+			int value;
+			int e1int, e2int;
+			//find out val of e1
+			if (element1[PC] == '#')
+			{
+				e1int = numFunc(value, element1[PC+1], element1[PC+2], element1[PC+3]);
+			} else if (element1[PC] == 'r') {
+				e1int = regFunc(value, element1[PC+1], element1[PC+2]);
+			} else {
+				printf("Invalid input\n");
+			}
+			//find out val of e2
+			if (element2[PC] == '#')
+			{
+				e2int = numFunc(value, element2[PC+1], element2[PC+2], element2[PC+3]);
+			} else if (element2[PC] == 'r') {
+				e2int = regFunc(value, element2[PC+1], element2[PC+2]);
+			} else {
+				printf("Invalid input\n");
+			}
+
+			//Compare and set CMP global var (cmpGlob) with result
+			//printf("e1int: %i e2int: %i\n", e1int, e2int);
+
+			if(e1int == e2int)
+			{
+				cmpGlob = 2;
+			} else if (e1int < e2int)
+			{
+				cmpGlob = 1;
+			} else if (e1int > e2int)
+			{
+				cmpGlob = 3;
+			}
+
+		} else if (instruction[PC] == 'b' && instruction[PC+1] == 'e' && instruction[PC+2] == 'q' && instruction[PC+3] == '\0')
+		{
+			printf("BEQ\n");
+
+			char* labelex = strtok(labelarrstr, " ");
+			char* labelex1 = strtok(NULL, " \n");
+
+			if (cmpGlob == 1) 
+			{
+				printf("Equal -> branch to: %s", labelex1);
+				//TODO -- find label PC
+				//Set PC+4 here -- TODO
+				//we want to set it to the line after the label so the label doenst get r
+			} else if (cmpGlob == 2 || cmpGlob == 3)
+			{
+				printf("Not Equal");
+			}
+
+		} else if (instruction[PC] == 'b' && instruction[PC+1] == 'g' && instruction[PC+2] == 't' && instruction[PC+3] == '\0')
+		{
+			printf("BGT\n");
+			//TODO
+			//branch if previous CMP is greater than-- using cmpGlob
+		} else if (instruction[PC] == 'b' && instruction[PC+1] == '\0' && instruction[PC+2] == '\0' && instruction[PC+3] == '\0')
+		{
+			printf("B\n");
+		} else {
+			printf("Invalid Instruction\n");
 		}
-
-
 		PC = PC + 4;
-
 	}
+
 
 	printf("\n");
 }
@@ -396,6 +473,9 @@ int regFunc(int value, char char1, char char2)
 	} else if (char1 == '9')
 	{
 		value = R9;
+	} else if (char1 == '0')
+	{
+		value = R0;
 	} else {
 		printf("Invalid register");
 	}
@@ -455,6 +535,9 @@ void storeRegFunc(char char1, char char2, int store)
 	} else if (char1 == '9')
 	{
 		R9 = store;
+	} else if (char1 == '0')
+	{
+		R0 = store;
 	} else {
 		printf("Invalid register");
 	}	

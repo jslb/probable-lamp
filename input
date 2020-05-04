@@ -1,4 +1,5 @@
 main:
-	found:
-		mov r7, #1
-		swi	SWI_Exit
+				add r4, r4, #1
+				sub r5, r5, #1    
+				cmp r5, #0
+				beq cat
