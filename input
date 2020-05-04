@@ -1,7 +1,4 @@
 main:
-	mov	r1, #1
-	mov	r3, #2
-	add	r2, #4, r3
-	add r11, r12, #8
-	sub	r5, r11, #5
-	swi	SWI_Exit
+	found:
+		mov r7, #1
+		swi	SWI_Exit

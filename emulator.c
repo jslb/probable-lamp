@@ -98,13 +98,25 @@ int main() {
 		} else {
 			instruction[PC] = '\0';
 		}
-
+		
 		//Identifies if line is a label
+		char labelarr[MAXCHAR];
+		int labeli = PC*4;
+		int temp = 0;
 		if (strstr(newline, ":") != NULL)
 		{
-			char* labelarr = strtok(newline, ":");
-			printf("\tThis is a label: %s\n", labelarr);
-			//TODO - must store the labels for later use - with their PC values
+			char* labelarrstr = strtok(newline, ":");
+			printf("\tThis is a label: %s\n", labelarrstr);
+
+			//Stores char in labelarr with one -> one function of PC*4
+			for (int i = 0; isalpha(labelarrstr[i]);)
+			{
+				labelarr[labeli] = labelarrstr[i];
+				i++;
+				labeli++;
+			}
+			//This is how to access the labels after being stored in labelarr
+			//printf("labelarr: %c%c%c%c%c\n", labelarr[PC*4], labelarr[PC*4+1], labelarr[PC*4+2], labelarr[PC*4+3], labelarr[PC*4+4]);
 		}	
 
 		//Extracts element1		
