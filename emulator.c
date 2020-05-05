@@ -43,6 +43,7 @@ int main() {
 	int PC = 4; 	//Set at 4 so line PC for x = x*4
 
 	//Get line by line from file
+	//Store in memory
 	while (fgets(line, MAXCHAR, fp) != NULL)
 	{
 		//Prints iput line
@@ -85,7 +86,6 @@ int main() {
 		//Extracts Instruction
 		int c = PC;
 		int index = 0;
-		//char instruction[MAXCHAR];
 		//Store instruction in var
 
 		if (isalpha(newline[index]) > 0)
@@ -114,8 +114,6 @@ int main() {
 		}
 		
 		//Identifies if line is a label
-		//char labelarr[MAXCHAR];
-		//char* labelarrstr;
 		int labeli = PC*4;
 		int temp = 0;
 		if (strstr(newline, ":") != NULL)
@@ -129,13 +127,9 @@ int main() {
 				i++;
 				labeli++;
 			}
-			//This is how to access the labels after being stored in labelarr
-			//printf("labelarr: %c%c%c%c%c\n", labelarr[PC*4], labelarr[PC*4+1], labelarr[PC*4+2], labelarr[PC*4+3], labelarr[PC*4+4]);
-			//printf("labelarr: char '%c', index: '%i'", labelarr[PC*4], PC*4);
 		}	
 
 		//Extracts element1		
-		//char element1[MAXCHAR];
 		int vars = isspace(newline[index]);
 		while (isspace(newline[index]) == 0)
 		{
@@ -169,7 +163,6 @@ int main() {
 		}		
 
 		//Extrscts element2
-		//char element2[MAXCHAR];
 		while (isspace(newline[index]) == 0)
 		{
 			index++;
@@ -202,7 +195,6 @@ int main() {
 		}
 
 		//Extracts element3
-		//char element3[MAXCHAR];
 		while (isspace(newline[index]) == 0)
 		{
 			index++;
@@ -234,9 +226,16 @@ int main() {
 			element3[PC] = '\0';
 		}				
 
+		//Increases PC for next line
 		PC = PC + 4;
-	} //closes first while loop -- should close fp here soon 
-	
+
+	} //closes first while loop 
+
+	//closes the file reader
+	fclose(fp);
+
+	//Load and Execute
+	//Set PC to 4 (First line)
 	PC = 4;
 	while (PC != 0) 
 	{
@@ -292,7 +291,6 @@ int main() {
 				printf("SWI Function Interrupt\n\n");
 			} else {
 				printf("SWI System Exit\n\n");
-				fclose(fp);
 				return 0;
 			}
 		//SUB
@@ -322,17 +320,18 @@ int main() {
             regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 		} else if (instruction[PC] == 'l' && instruction[PC+1] == 'd' && instruction[PC+2] == 'r' && instruction[PC+3] == '\0')
 		{
+			//TODO --
 			printf("LDR\n");	
 		} else if (instruction[PC] == 'l' && instruction[PC+1] == 'd' && instruction[PC+2] == 'r' && instruction[PC+3] == 'b')
 		{
+			//TODO --
 			printf("LDRB\n");
 		} else if (instruction[PC] == 'c' && instruction[PC+1] == 'm' && instruction[PC+2] == 'p' && instruction[PC+3] == '\0')
 		{
 			printf("CMP\n");
-			//cmp values and store result in global var (cmpGlob)
 			int value;
 			int e1int, e2int;
-			//find out val of e1
+			//Get e1 value
 			if (element1[PC] == '#')
 			{
 				e1int = numFunc(value, element1[PC+1], element1[PC+2], element1[PC+3]);
@@ -341,7 +340,7 @@ int main() {
 			} else {
 				printf("Invalid input\n");
 			}
-			//find out val of e2
+			//Get e2 value
 			if (element2[PC] == '#')
 			{
 				e2int = numFunc(value, element2[PC+1], element2[PC+2], element2[PC+3]);
@@ -350,21 +349,17 @@ int main() {
 			} else {
 				printf("Invalid input\n");
 			}
-
 			//Compare and set CMP global var (cmpGlob) with result
-			//printf("e1int: %i e2int: %i\n", e1int, e2int);
-
 			if(e1int == e2int)
 			{
 				cmpGlob = 2;
-			} else if (e1int < e2int)
+			} else if (e1int > e2int)
 			{
 				cmpGlob = 1;
-			} else if (e1int > e2int)
+			} else if (e1int < e2int)
 			{
 				cmpGlob = 3;
 			}
-
 		} else if (instruction[PC] == 'b' && instruction[PC+1] == 'e' && instruction[PC+2] == 'q' && instruction[PC+3] == '\0')
 		{
 			printf("BEQ\n");
@@ -372,62 +367,113 @@ int main() {
 			char* labelex = strtok(labelarrstr, " ");
 			char* labelex1 = strtok(NULL, " \n");
 
-			if (cmpGlob == 1) 
+			if (cmpGlob == 2) 
 			{
 				printf("Equal -> branch to: %c%c%c%c\n", element1[PC], element1[PC+1], element1[PC+2], element1[PC+3]);
-				//TODO -- find label PC
-				//Set PC+4 here -- TODO
-				//we want to set it to the line after the label so the label doenst get r
 				
-				//fnd labelx1 str in labelarr
-				
-				//Finds first occrance of labelex1 in labelarr
+				//Finds first occrance of element1[PC] in labelarr
 				int labPC = 0;
 				for (int i = 0; labelarr[i] != element1[PC];)
 				{
 					i++;
 					labPC = i;
 				}
-				//confirms the whole label matches
+				//Confirms the whole label matches
 				int j = PC;
 				for(int i = 0; i > 4;)
 				{
 					if(labelarr[labPC] == element1[j])
 					{
 						//chars match
-						printf("\tif -Label '%c%c%c%c' found @labelarr[%i], char: '%c'\n",element1[PC], element1[PC+1], element1[PC+2], element1[PC+3], labPC, labelarr[labPC]);
+						//printf("\tif -Label '%c%c%c%c' found @labelarr[%i], char: '%c'\n",element1[PC], element1[PC+1], element1[PC+2], element1[PC+3], labPC, labelarr[labPC]);
 					}else{
 						//chars dont match
-						printf("in for loop, else\n");
-						printf("\telse -Label '%s' found @labelarr[%i], char: '%c'\n",labelex1, labPC, labelarr[labPC]);
+						//printf("in for loop, else\n");
+						//printf("\telse -Label '%s' found @labelarr[%i], char: '%c'\n",labelex1, labPC, labelarr[labPC]);
 					}
 					i++;
 					j++;
 					labPC++;
 				}
-				//sets new PC - to envoke the label
+				//Sets new PC to envoke the label
 				labPC = labPC/4;
-				printf("labpc: %i\n", labPC);
 				PC = labPC;
 				labPC = 0;
-
-			} else if (cmpGlob == 2 || cmpGlob == 3)
+			} else if (cmpGlob == 1 || cmpGlob == 3)
 			{
 				printf("Not Equal");
 			}
-
 		} else if (instruction[PC] == 'b' && instruction[PC+1] == 'g' && instruction[PC+2] == 't' && instruction[PC+3] == '\0')
 		{
 			printf("BGT\n");
-			//TODO
 			//branch if previous CMP is greater than-- using cmpGlob
+
+			char* labelex = strtok(labelarrstr, " ");
+			char* labelex1 = strtok(NULL, " \n");
+
+			if (cmpGlob == 1)
+			{
+				printf("E1 > E2 -> branch to: '%c%c%c%c'\n", element1[PC], element1[PC+1], element1[PC+2], element1[PC+3]);
+				//Finds first occrance of element1[PC] in labelarr
+				int labPC = 0;
+				for (int i = 0; labelarr[i] != element1[PC];)
+				{
+					i++;
+					labPC = i;
+				}
+				//Confirms the whole label matches
+				int j = PC;
+				for(int i = 0; i > 4;)
+				{
+					if(labelarr[labPC] == element1[j])
+					{
+
+					}else{
+
+					}
+					i++;
+					j++;
+					labPC++;
+				}
+				//Sets new PC to envoke the label
+				labPC = labPC/4;
+				PC = labPC;
+				labPC = 0;
+			} 
+
 		} else if (instruction[PC] == 'b' && instruction[PC+1] == '\0' && instruction[PC+2] == '\0' && instruction[PC+3] == '\0')
 		{
-			printf("B\n");
-		} else {
-			//if line is a label - move on, else invalid
 
-			//printf("\tInstruction was: '%c%c%c%c'\n", instruction[PC], instruction[PC+1], instruction[PC+2], instruction[PC+3]);
+			printf("Branch to: '%c%c%c%c'\n", element1[PC], element1[PC+1], element1[PC+2], element1[PC+3]);
+			//Finds first occrance of element1[PC] in labelarr
+			int labPC = 0;
+			for (int i = 0; labelarr[i] != element1[PC];)
+			{
+				i++;
+				labPC++;
+			}
+			//Confirms the whole label matches
+			int j = PC;
+			for(int i = 0; i > 4;)
+			{
+				if(labelarr[labPC] == element1[j])
+				{
+			
+				} else {
+			
+				}
+				i++;
+				j++;
+				labPC++;
+			}
+			//Sets new PC to envoke the label
+			labPC = labPC/4;
+			PC = labPC;
+			labPC = 0;
+			
+		} else {
+			//TODO --
+			//if line is a label - move on, else invalid
 		}
 		PC = PC + 4;
 	
