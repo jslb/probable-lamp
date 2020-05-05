@@ -3,7 +3,14 @@
 #include <string.h>
 
 #define MAXCHAR 1000
-
+char instruction[MAXCHAR];
+char labelarr[MAXCHAR];
+char* labelarrstr;
+char element1[MAXCHAR];
+char element2[MAXCHAR];
+char element3[MAXCHAR];
+char* labelex;
+char* labelex1;
 int R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15;
 
 int numFunc(int, char, char, char);
@@ -15,6 +22,7 @@ void storeRegFunc(char, char, int);
 //	2 = e1==e2
 //	3 = e2>
 int cmpGlob = 0;
+
 
 int main() {
 	//Set up for file read
@@ -77,7 +85,7 @@ int main() {
 		//Extracts Instruction
 		int c = PC;
 		int index = 0;
-		char instruction[MAXCHAR];
+		//char instruction[MAXCHAR];
 		//Store instruction in var
 
 		if (isalpha(newline[index]) > 0)
@@ -106,15 +114,14 @@ int main() {
 		}
 		
 		//Identifies if line is a label
-		char labelarr[MAXCHAR];
-		char* labelarrstr;
+		//char labelarr[MAXCHAR];
+		//char* labelarrstr;
 		int labeli = PC*4;
 		int temp = 0;
 		if (strstr(newline, ":") != NULL)
 		{
 			labelarrstr = strtok(newline, ":");
 			printf("\tThis is a label: %s\n", labelarrstr);
-
 			//Stores char in labelarr with one -> one function of PC*4
 			for (int i = 0; isalpha(labelarrstr[i]);)
 			{
@@ -124,10 +131,11 @@ int main() {
 			}
 			//This is how to access the labels after being stored in labelarr
 			//printf("labelarr: %c%c%c%c%c\n", labelarr[PC*4], labelarr[PC*4+1], labelarr[PC*4+2], labelarr[PC*4+3], labelarr[PC*4+4]);
+			//printf("labelarr: char '%c', index: '%i'", labelarr[PC*4], PC*4);
 		}	
 
 		//Extracts element1		
-		char element1[MAXCHAR];
+		//char element1[MAXCHAR];
 		int vars = isspace(newline[index]);
 		while (isspace(newline[index]) == 0)
 		{
@@ -161,7 +169,7 @@ int main() {
 		}		
 
 		//Extrscts element2
-		char element2[MAXCHAR];
+		//char element2[MAXCHAR];
 		while (isspace(newline[index]) == 0)
 		{
 			index++;
@@ -194,7 +202,7 @@ int main() {
 		}
 
 		//Extracts element3
-		char element3[MAXCHAR];
+		//char element3[MAXCHAR];
 		while (isspace(newline[index]) == 0)
 		{
 			index++;
@@ -226,8 +234,12 @@ int main() {
 			element3[PC] = '\0';
 		}				
 
-
-
+		PC = PC + 4;
+	} //closes first while loop -- should close fp here soon 
+	
+	PC = 4;
+	while (PC != 0) 
+	{
 		//Instruction read and calls
 		//ADD
 		if (instruction[PC] == 'a' && instruction[PC+1] == 'd' && instruction[PC+2] == 'd' && instruction[PC+3] == '\0')
@@ -317,7 +329,6 @@ int main() {
 		} else if (instruction[PC] == 'c' && instruction[PC+1] == 'm' && instruction[PC+2] == 'p' && instruction[PC+3] == '\0')
 		{
 			printf("CMP\n");
-			//TODO
 			//cmp values and store result in global var (cmpGlob)
 			int value;
 			int e1int, e2int;
@@ -363,10 +374,43 @@ int main() {
 
 			if (cmpGlob == 1) 
 			{
-				printf("Equal -> branch to: %s", labelex1);
+				printf("Equal -> branch to: %c%c%c%c\n", element1[PC], element1[PC+1], element1[PC+2], element1[PC+3]);
 				//TODO -- find label PC
 				//Set PC+4 here -- TODO
 				//we want to set it to the line after the label so the label doenst get r
+				
+				//fnd labelx1 str in labelarr
+				
+				//Finds first occrance of labelex1 in labelarr
+				int labPC = 0;
+				for (int i = 0; labelarr[i] != element1[PC];)
+				{
+					i++;
+					labPC = i;
+				}
+				//confirms the whole label matches
+				int j = PC;
+				for(int i = 0; i > 4;)
+				{
+					if(labelarr[labPC] == element1[j])
+					{
+						//chars match
+						printf("\tif -Label '%c%c%c%c' found @labelarr[%i], char: '%c'\n",element1[PC], element1[PC+1], element1[PC+2], element1[PC+3], labPC, labelarr[labPC]);
+					}else{
+						//chars dont match
+						printf("in for loop, else\n");
+						printf("\telse -Label '%s' found @labelarr[%i], char: '%c'\n",labelex1, labPC, labelarr[labPC]);
+					}
+					i++;
+					j++;
+					labPC++;
+				}
+				//sets new PC - to envoke the label
+				labPC = labPC/4;
+				printf("labpc: %i\n", labPC);
+				PC = labPC;
+				labPC = 0;
+
 			} else if (cmpGlob == 2 || cmpGlob == 3)
 			{
 				printf("Not Equal");
@@ -381,11 +425,13 @@ int main() {
 		{
 			printf("B\n");
 		} else {
-			printf("Invalid Instruction\n");
+			//if line is a label - move on, else invalid
+
+			//printf("\tInstruction was: '%c%c%c%c'\n", instruction[PC], instruction[PC+1], instruction[PC+2], instruction[PC+3]);
 		}
 		PC = PC + 4;
+	
 	}
-
 
 	printf("\n");
 }
