@@ -6,11 +6,13 @@
 char instruction[MAXCHAR];
 char labelarr[MAXCHAR];
 char* labelarrstr;
+char* storestr;
 char element1[MAXCHAR];
 char element2[MAXCHAR];
 char element3[MAXCHAR];
 char* labelex;
 char* labelex1;
+char ldrMEM[MAXCHAR];
 int R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15;
 
 int numFunc(int, char, char, char);
@@ -47,8 +49,8 @@ int main() {
 	while (fgets(line, MAXCHAR, fp) != NULL)
 	{
 		//Prints iput line
-		printf("Line is: %s", line);
-		printf("  PC: %i\n", PC);		
+			//printf("Line is: %s", line);
+			//printf("  PC: %i\n", PC);		
 
 		//Split line into elements
 
@@ -82,6 +84,8 @@ int main() {
 				x++;
 			}
 		}
+		printf("Line is: %s", newline);
+		printf("\tPC: %i\n", PC);
 
 		//Extracts Instruction
 		int c = PC;
@@ -119,7 +123,7 @@ int main() {
 		if (strstr(newline, ":") != NULL)
 		{
 			labelarrstr = strtok(newline, ":");
-			printf("\tThis is a label: %s\n", labelarrstr);
+			printf("\tThis is a label: '%s'\n", labelarrstr);
 			//Stores char in labelarr with one -> one function of PC*4
 			for (int i = 0; isalpha(labelarrstr[i]);)
 			{
@@ -128,6 +132,23 @@ int main() {
 				labeli++;
 			}
 		}	
+
+		//Identifies strings in line and stores to mem
+		int stri = PC*4;
+		int temp2 = 0;
+		if (strstr(newline, "=") != NULL)
+		{
+			storestr = strtok(newline, "=");
+			storestr = strtok(NULL, " \n");
+			printf("\tThis line contains a string: '%s'\n", storestr);
+			//Stores str in ldrMRM with same 1 -> 1 function as labelarrs
+			for (int i = 0; isalpha(storestr[i]);)
+			{
+				ldrMEM[stri] = storestr[i];
+				i++;
+				stri++;
+			}
+		}
 
 		//Extracts element1		
 		int vars = isspace(newline[index]);
@@ -169,7 +190,7 @@ int main() {
 		}
 		index++;
 
-		if (isalpha(newline[index]) > 0 || isdigit(newline[index]) > 0 || newline[index] == '#')
+		if (isalpha(newline[index]) > 0 || isdigit(newline[index]) > 0 || newline[index] == '#' || newline[index] == '[')
 		{
 			element2[PC] = newline[index];
 			if (isalpha(newline[index+1]) > 0 || isdigit(newline[index+1]) > 0 || newline[index] == '#')
@@ -225,6 +246,30 @@ int main() {
 		} else {
 			element3[PC] = '\0';
 		}				
+
+		//Opcodes printed here
+		char* OPCODE;
+		if (instruction[PC] == 'a' && instruction[PC+1] == 'd' && instruction[PC+2] == 'd' && instruction[PC+3] == '\0')
+        {
+			OPCODE = "0100";	
+			printf("\tOPCODE: %c%c%c%c\n\n", OPCODE[0], OPCODE[1], OPCODE[2], OPCODE[3]);
+		} else if (instruction[PC] == 'm' && instruction[PC+1] == 'o' && instruction[PC+2] == 'v' && instruction[PC+3] == '\0')
+		{
+			OPCODE = "1101";
+			printf("\tOPCODE: %c%c%c%c\n\n", OPCODE[0], OPCODE[1], OPCODE[2], OPCODE[3]);
+		} else if (instruction[PC] == 'c' && instruction[PC+1] == 'm' && instruction[PC+2] == 'p' && instruction[PC+3] == '\0')
+		{
+			OPCODE = "1010";
+			printf("\tOPCODE: %c%c%c%c\n\n", OPCODE[0], OPCODE[1], OPCODE[2], OPCODE[3]);
+		} else if (instruction[PC] == 's' && instruction[PC+1] == 'u' && instruction[PC+2] == 'b' && instruction[PC+3] == '\0')
+		{
+			OPCODE = "0010";
+			printf("\tOPCODE: %c%c%c%c\n\n", OPCODE[0], OPCODE[1], OPCODE[2], OPCODE[3]);
+		} else {
+			OPCODE = " ";
+			printf("\n");
+		}
+
 
 		//Increases PC for next line
 		PC = PC + 4;
@@ -320,15 +365,22 @@ int main() {
             regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 		} else if (instruction[PC] == 'l' && instruction[PC+1] == 'd' && instruction[PC+2] == 'r' && instruction[PC+3] == '\0')
 		{
-			//TODO --
-			printf("LDR\n");	
+			//Uses 1 -> 1 mapping to calcute the index at which the str in stored in the array
+			//This index is then stored in the register
+			int ldrindex = PC*4;
+			storeRegFunc(element1[PC+1], element1[PC+2], ldrindex);
+			regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);	
+
 		} else if (instruction[PC] == 'l' && instruction[PC+1] == 'd' && instruction[PC+2] == 'r' && instruction[PC+3] == 'b')
 		{
-			//TODO --
-			printf("LDRB\n");
+			//Loads byte using ldrMeM and ldrindex (stored usring ldr)
+			int value = 0;
+			int ldrindex = regFunc(value, element2[PC+2], element2[PC+3]);
+			storeRegFunc(element1[PC+1], element1[PC+2], ldrMEM[ldrindex]);
+			regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
+
 		} else if (instruction[PC] == 'c' && instruction[PC+1] == 'm' && instruction[PC+2] == 'p' && instruction[PC+3] == '\0')
 		{
-			printf("CMP\n");
 			int value;
 			int e1int, e2int;
 			//Get e1 value
@@ -352,12 +404,15 @@ int main() {
 			//Compare and set CMP global var (cmpGlob) with result
 			if(e1int == e2int)
 			{
+				printf("CMP result: =\n");
 				cmpGlob = 2;
 			} else if (e1int > e2int)
 			{
+				printf("CMP result: >\n");
 				cmpGlob = 1;
 			} else if (e1int < e2int)
 			{
+				printf("CMP reults: <\n");
 				cmpGlob = 3;
 			}
 		} else if (instruction[PC] == 'b' && instruction[PC+1] == 'e' && instruction[PC+2] == 'q' && instruction[PC+3] == '\0')
@@ -472,7 +527,6 @@ int main() {
 			labPC = 0;
 			
 		} else {
-			//TODO --
 			//if line is a label - move on, else invalid
 		}
 		PC = PC + 4;
@@ -519,7 +573,7 @@ int regFunc(int value, char char1, char char2)
 {
 	if (char1 == '1')
 	{
-		if (char2 == ',')
+		if (char2 == ',' || char2 == ']')
 		{
 			value = R1;
 		} else if (char2 == '1')
