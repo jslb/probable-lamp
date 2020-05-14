@@ -1,19 +1,30 @@
 main:
 				ldr r4,=foundit 
- 				mov r5, #10
-	here:
-				ldrb r3, [r4]        
-				cmp r3, #111
-				beq found           
+ 				mov r7, r4
+				mov r8, #65
+				strb r8, [r4]
+				add r8, r8, #1
 				add r4, r4, #1
-				sub r5, r5, #1    
+				strb r8, [r4]
+				add r8, r8, #1
+				add r4, r4, #1
+				mov r8, #111
+				strb r8, [r4]
+				mov r5, #10
+				mov r4, r7
+		here:
+				ldrb r3, [r4]
+				cmp r3, #111
+				beq found
+				add r4, r4, #1
+				sub r5, r5, #1
 				cmp r5, #0
 				bgt here
-				ldr r1,=notfound    
+				ldr r1,=notfound
 				b exit
-	found:
-				ldr r1,=foundit    
-	exit:
+		found:
+				ldr r1,=foundit
+		exit:
 				mov r7, #4
 				mov r0, #1
 				mov r2, #10

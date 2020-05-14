@@ -528,7 +528,18 @@ int main() {
 			labPC = labPC/4;
 			PC = labPC;
 			labPC = 0;
-			
+		} else if (instruction[PC] == 's' && instruction[PC+1] == 't' && instruction[PC+2] == 'r' && instruction[PC+3] == 'b')
+		{
+			//STRB
+			int value, value2;
+			//Using regFunc, retreive reg value from e1
+			int strval = regFunc(value, element1[PC+1], element1[PC+2]);
+			//Using regFunc, retrive reg value form e2 - this will be the index for the ldrMEM arr
+			int ldrindex = regFunc(value2, element2[PC+2], element2[PC+3]);
+
+			//Store value in ldrMEM
+			ldrMEM[ldrindex] = strval;
+			regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 		} else {
 			//if line is a label - move on, else invalid
 		}
