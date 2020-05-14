@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 
+//Global Varvs declarations
 #define MAXCHAR 1000
 char instruction[MAXCHAR];
 char labelarr[MAXCHAR];
@@ -48,10 +49,6 @@ int main() {
 	//Store in memory
 	while (fgets(line, MAXCHAR, fp) != NULL)
 	{
-		//Prints iput line
-			//printf("Line is: %s", line);
-			//printf("  PC: %i\n", PC);		
-
 		//Split line into elements
 
 		char newline[MAXCHAR];
@@ -90,8 +87,9 @@ int main() {
 		//Extracts Instruction
 		int c = PC;
 		int index = 0;
-		//Store instruction in var
-
+		//Store instruction in instruction[] at array inital index of PC
+		//The nested loops here ensure that chars are copied across
+		//If char is not a letter (as all instructions should be letters), closes with '\0'
 		if (isalpha(newline[index]) > 0)
 		{
 			instruction[PC] = newline[index];
@@ -133,7 +131,7 @@ int main() {
 			}
 		}	
 
-		//Identifies strings in line and stores to mem
+		//Identifies strings in line and stores to ldrMEM
 		int stri = PC*4;
 		int temp2 = 0;
 		if (strstr(newline, "=") != NULL)
@@ -150,14 +148,15 @@ int main() {
 			}
 		}
 
-		//Extracts element1		
+		//Extracts element1	
 		int vars = isspace(newline[index]);
 		while (isspace(newline[index]) == 0)
 		{
 			index++;
 		} 
 		index++;
-
+		//Store element1 in array following imilar method to instruction store
+		//All elements (bar instruction) may contain digits, this is reflected with a conditional OR
 		if (isalpha(newline[index]) > 0 || isdigit(newline[index]) > 0)
 		{
 			element1[PC] = newline[index];
@@ -183,13 +182,14 @@ int main() {
 			element1[PC] = '\0';
 		}		
 
-		//Extrscts element2
+		//Extracts element2 
 		while (isspace(newline[index]) == 0)
 		{
 			index++;
 		}
 		index++;
-
+		//Store of element2 follows the same as element1
+		//Element2 may also being with '#' or '[', reflected by OR
 		if (isalpha(newline[index]) > 0 || isdigit(newline[index]) > 0 || newline[index] == '#' || newline[index] == '[')
 		{
 			element2[PC] = newline[index];
@@ -221,7 +221,8 @@ int main() {
 			index++;
 		}
 		index++;
-
+		//Store of element3 follows the same as element2
+		//Element2 may also being with '#', reflected by OR
 		if (isalpha(newline[index]) > 0 || isdigit(newline[index]) > 0 || newline[index] == '#')
 		{
 			element3[PC] = newline[index];
@@ -249,6 +250,7 @@ int main() {
 
 		//Opcodes printed here
 		char* OPCODE;
+		//Pronts opcode based off instruction
 		if (instruction[PC] == 'a' && instruction[PC+1] == 'd' && instruction[PC+2] == 'd' && instruction[PC+3] == '\0')
         {
 			OPCODE = "0100";	
@@ -292,8 +294,10 @@ int main() {
 			int e2int, e3int;
 			if (element2[PC] == '#')
 			{
+				//Send element2 to numFunc to return int
 				e2int = numFunc(value, element2[PC+1], element2[PC+2], element2[PC+3]);
 			} else if (element2[PC] == 'r') {
+				//Send element2 to regFun to return value of reg
 				e2int = regFunc(value, element2[PC+1], element2[PC+2]);
 			} else {
 				printf("Invalid input\n");
@@ -307,8 +311,12 @@ int main() {
 				printf("Invalid inputi - here\n"); 
 			}
 
+			//Final calulation for instruction
 			value = e2int + e3int;
+			//Use storeRegFunc to store value in desired register
+			//Using element1 and the calculated final value
 			storeRegFunc(element1[PC+1], element1[PC+2], value);
+			//Print all registers using regPrintFunc
 			regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 			
 		//MOV
@@ -318,14 +326,17 @@ int main() {
 			int e2int;			
 			if (element2[PC] == '#')
 			{
+				//Uses e2 and numFunc to retrive int
 				e2int = numFunc(value, element2[PC+1], element2[PC+2], element2[PC+3]);
 			} else if (element2[PC] == 'r') {
+				//Uses e2 and regFunc to retreive register value int
 				e2int = regFunc(value, element2[PC+1], element2[PC+2]);
 			} else {
-				printf("Invalid inputi - here\n");
+				printf("Invalid input - here\n");
 			}
-	
+			//Store
 			storeRegFunc(element1[PC+1], element1[PC+2], e2int);
+			//Print all registers
 			regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 
 		//SWI
@@ -336,6 +347,7 @@ int main() {
 				printf("SWI Function Interrupt\n\n");
 			} else {
 				printf("SWI System Exit\n\n");
+				//SWI causes system exit
 				return 0;
 			}
 		//SUB
@@ -343,6 +355,7 @@ int main() {
 		{
 			int value = 0;
 			int e2int, e3int;
+			//Using element2 and element3 arrays, and numFunc and regFunc, retrive instruction ints
 			if (element2[PC] == '#')
 			{
 				e2int = numFunc(value, element2[PC+1], element2[PC+2], element2[PC+3]);
@@ -360,7 +373,9 @@ int main() {
                 printf("Invalid inputi - here\n");
             }
 
+			//Perform calulation for instruction
             value = e2int - e3int;
+			//Store and Print all registers
             storeRegFunc(element1[PC+1], element1[PC+2], value);
             regPrintFunc(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15);
 		} else if (instruction[PC] == 'l' && instruction[PC+1] == 'd' && instruction[PC+2] == 'r' && instruction[PC+3] == '\0')
@@ -383,7 +398,7 @@ int main() {
 		{
 			int value;
 			int e1int, e2int;
-			//Get e1 value
+			//Get e1 value 
 			if (element1[PC] == '#')
 			{
 				e1int = numFunc(value, element1[PC+1], element1[PC+2], element1[PC+3]);
@@ -401,7 +416,7 @@ int main() {
 			} else {
 				printf("Invalid input\n");
 			}
-			//Compare and set CMP global var (cmpGlob) with result
+			//Compare and set CMP global var (cmpGlob) with result - see lines 23-27
 			if(e1int == e2int)
 			{
 				printf("CMP result: =\n");
@@ -417,11 +432,7 @@ int main() {
 			}
 		} else if (instruction[PC] == 'b' && instruction[PC+1] == 'e' && instruction[PC+2] == 'q' && instruction[PC+3] == '\0')
 		{
-			printf("BEQ\n");
-
-			char* labelex = strtok(labelarrstr, " ");
-			char* labelex1 = strtok(NULL, " \n");
-
+		//BEQ
 			if (cmpGlob == 2) 
 			{
 				printf("Equal -> branch to: %c%c%c%c\n", element1[PC], element1[PC+1], element1[PC+2], element1[PC+3]);
@@ -440,11 +451,8 @@ int main() {
 					if(labelarr[labPC] == element1[j])
 					{
 						//chars match
-						//printf("\tif -Label '%c%c%c%c' found @labelarr[%i], char: '%c'\n",element1[PC], element1[PC+1], element1[PC+2], element1[PC+3], labPC, labelarr[labPC]);
 					}else{
 						//chars dont match
-						//printf("in for loop, else\n");
-						//printf("\telse -Label '%s' found @labelarr[%i], char: '%c'\n",labelex1, labPC, labelarr[labPC]);
 					}
 					i++;
 					j++;
@@ -460,12 +468,7 @@ int main() {
 			}
 		} else if (instruction[PC] == 'b' && instruction[PC+1] == 'g' && instruction[PC+2] == 't' && instruction[PC+3] == '\0')
 		{
-			printf("BGT\n");
-			//branch if previous CMP is greater than-- using cmpGlob
-
-			char* labelex = strtok(labelarrstr, " ");
-			char* labelex1 = strtok(NULL, " \n");
-
+		//BGT - Branch if previous CMP is greater than-- using cmpGlob
 			if (cmpGlob == 1)
 			{
 				printf("E1 > E2 -> branch to: '%c%c%c%c'\n", element1[PC], element1[PC+1], element1[PC+2], element1[PC+3]);
@@ -498,7 +501,7 @@ int main() {
 
 		} else if (instruction[PC] == 'b' && instruction[PC+1] == '\0' && instruction[PC+2] == '\0' && instruction[PC+3] == '\0')
 		{
-
+		//B
 			printf("Branch to: '%c%c%c%c'\n", element1[PC], element1[PC+1], element1[PC+2], element1[PC+3]);
 			//Finds first occrance of element1[PC] in labelarr
 			int labPC = 0;
