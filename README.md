@@ -30,7 +30,7 @@ Instruction	- Description				- Example input
 	STRB		- Stores byte			- strb r8, [r4]
 
 
-##Future Developments
+## Future Developments
 
 There are many more instructions left to impliment before this simulator is complete. 
 
