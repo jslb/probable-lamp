@@ -35,9 +35,10 @@ Instruction	- Description				- Example input
 There are many more instructions left to impliment before this simulator is complete. 
 
 Next steps should include the addition of:
-		The MUL instruction - multiply and store result
-		The SWP and SWPB - swapping words or btyes 
-		Logical opertations including : AND, EOR and ORR
+		
+		 - The MUL instruction - multiply and store result
+		 - The SWP and SWPB - swapping words or btyes 
+		 - Logical opertations including : AND, EOR and ORR
 
 Further work on opcodes should be considered next, in addition to the full binary string instruction being generated and accetped by the emulator. 
 
