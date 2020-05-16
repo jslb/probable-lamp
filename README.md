@@ -42,3 +42,4 @@ Next steps should include the addition of:
 
 Further work on opcodes should be considered next, in addition to the full binary string instruction being generated and accetped by the emulator. 
 
+Github repo: <https://github.com/jslb/probable-lamp>
