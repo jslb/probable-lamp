@@ -14,20 +14,20 @@ To compile on Linux use:
 
 
 The following instructions are accepted by the emulator:
-********************************************************
+**************************************************************************
 Instruction	- Description				- Example input
-********************************************************
+**************************************************************************
 	ADD		- Add and store result		- add r4, r4, #1
 	SUB		- Subtract and store result	- sub r5, r5, #1
-	CMP		- Compare to value			- cmp r3, #111
-	MOV		- Move value to reg			- mov r8, #65
-	SWI		- SWI Exit call				- swi SWI_Exit
-	LDR		- Load str from mem			- ldr r4,=str
-	LDRB	- Load byte from mem		- ldrb r3, [r4]
-	BEQ		- Branch if equal			- beq branch
+	CMP		- Compare to value		- cmp r3, #111
+	MOV		- Move value to reg		- mov r8, #65
+	SWI		- SWI Exit call			- swi SWI_Exit
+	LDR		- Load str from mem		- ldr r4,=str
+	LDRB		- Load byte from mem		- ldrb r3, [r4]
+	BEQ		- Branch if equal		- beq branch
 	BGT		- Branch if greater than	- beq branch
-	B		- Loads Branch				- b branch
-	STRB	- Stores byte				- strb r8, [r4]
+	B		- Loads Branch			- b branch
+	STRB		- Stores byte			- strb r8, [r4]
 
 
 ##Future Developments
